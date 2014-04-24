@@ -53,9 +53,9 @@ FILEOT[24]=MOD3_2001_2050_rgrid_pr
 	FILEOT[25]=EOBS_1951_2009_tas
 	FILEOT[26]=EOBS_1951_2009_pr
 
-LON[1]=13.9453;   LAT[1]=45.2408; # Porec
+LON[1]=13.9453;   LAT[1]=45.2408; # Pazin
 LON[2]=13.9300;   LAT[2]=45.4308; # Abrami
-LON[3]=13.6036;   LAT[3]=45.2203; # Pazin
+LON[3]=13.6036;   LAT[3]=45.2203; # Porec
 LON[4]=13.5833;   LAT[4]=45.3333; # Novigrad Celega
 LON[5]=17.6431;   LAT[5]=43.0464; # Metković
 LON[6]=17.4428;   LAT[6]=43.0475; # Ploče

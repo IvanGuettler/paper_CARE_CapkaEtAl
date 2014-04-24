@@ -68,6 +68,13 @@ end
 %%
 % (3) Ucitati podatke RCM: CC WaterS
 
+%               ___________ mean monthly T2m, monthly precipitation sum
+%              |  _________ Aladin, RegCM, Promes
+%              | |  _______ HIST rgrid, FUT rgrid, HIST bias corr, FUT bias corr
+%              | | |  _____ Postaj: Pazin, Abrami, Porec, Celega, Metković, Ploče, Opuzen
+%              | | | |  ___ broj vremenski koraka
+%              | | | | | 
+%              v v v v v
 RCM_HST_mm=nan(2,3,4,7, 600);
 RCM_FUT_mm=nan(2,3,4,7,1200); N=[1200 1200 600];
 VARtxt2={'tas_mon','tas_mon','pr_mon','pr_mon'}; VARtxt={'tas','tas','pr','pr'};

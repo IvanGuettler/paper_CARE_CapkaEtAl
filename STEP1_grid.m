@@ -7,17 +7,16 @@ longi=ncread('./elev_0.25deg_reg_v3.0.nc','longitude');
     granica=load('./3269.dat');
       obala=load('./2876.dat');
 
-postaje(1,:)=[13+56/60+43/3600, 45+14/60+27/3600]; %> Poreč
-postaje(2,:)=[13+55/60+48/3600, 45+25/60+51/3600]; %> Abrami
-postaje(3,:)=[13+36/60+13/3600, 45+13/60+13/3600]; %> Pazin
-postaje(4,:)=[13+35/60+0/3600,  45+20/60+0/3600];  %> Novigrad Celega
-postaje(5,:)=[17+38/60+35/3600, 43+2/60+47/3600];  %> Metković
-postaje(6,:)=[17+26/60+34/3600, 43+2/60+51/3600];  %> Ploče
-postaje(7,:)=[17+33/60+31/3600, 43+1/60+ 3/3600];  %> Opuzen
-
+postaje(1,:)=[13+56/60+43/3600, 45+14/60+27/3600]; texT{1}='Pazin';
+postaje(2,:)=[13+55/60+48/3600, 45+25/60+51/3600]; texT{2}='Abrami';
+postaje(3,:)=[13+36/60+13/3600, 45+13/60+13/3600]; texT{3}='Porec';
+postaje(4,:)=[13+35/60+0/3600,  45+20/60+0/3600];  texT{4}='Celega';
+postaje(5,:)=[17+38/60+35/3600, 43+2/60+47/3600];  texT{5}='Metkovic';
+postaje(6,:)=[17+26/60+34/3600, 43+2/60+51/3600];  texT{6}='Ploce';
+postaje(7,:)=[17+33/60+31/3600, 43+1/60+ 3/3600];  texT{7}='Opuzen';
 
 [X,Y]=meshgrid(longi,lati);
-
+%%
 figure(1); set(gcf,'Position',[110 135 1289 548])
 subplot(1,2,1)
     pcolorjw(X,Y,double(elea')); hold on
@@ -31,7 +30,9 @@ subplot(1,2,2)
             plot(postaje(:,1),postaje(:,2),'x g')
     xlim([10 20])
     ylim([42 48])
-    
+    for STAT=[1:7]; 
+       ttt=text(postaje(STAT,1)-0.05,postaje(STAT,2)-0.025,texT{STAT}); set(ttt,'Color','green');
+    end
     
     caxis([0 2500])
     
