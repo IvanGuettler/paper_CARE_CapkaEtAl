@@ -1,0 +1,64 @@
+
+FILEOT[ 1]=MOD1_1951_2000_BiasCorr_tas
+FILEOT[ 2]=MOD1_1951_2000_rgrid_tas
+FILEOT[ 3]=MOD1_2001_2100_BiasCorr_tas
+FILEOT[ 4]=MOD1_2001_2100_rgrid_tas
+FILEOT[ 5]=MOD1_1951_2000_BiasCorr_pr
+FILEOT[ 6]=MOD1_1951_2000_rgrid_pr
+FILEOT[ 7]=MOD1_2001_2100_BiasCorr_pr
+FILEOT[ 8]=MOD1_2001_2100_rgrid_pr
+	FILEOT[ 9]=MOD2_1951_2000_BiasCorr_tas
+	FILEOT[10]=MOD2_1951_2000_rgrid_tas
+	FILEOT[11]=MOD2_2001_2100_BiasCorr_tas
+	FILEOT[12]=MOD2_2001_2100_rgrid_tas
+	FILEOT[13]=MOD2_1951_2000_BiasCorr_pr
+	FILEOT[14]=MOD2_1951_2000_rgrid_pr
+	FILEOT[15]=MOD2_2001_2100_BiasCorr_pr
+	FILEOT[16]=MOD2_2001_2100_rgrid_pr
+FILEOT[17]=MOD3_1951_2000_BiasCorr_tas
+FILEOT[18]=MOD3_1951_2000_rgrid_tas
+FILEOT[19]=MOD3_2001_2050_BiasCorr_tas
+FILEOT[20]=MOD3_2001_2050_rgrid_tas
+FILEOT[21]=MOD3_1951_2000_BiasCorr_pr
+FILEOT[22]=MOD3_1951_2000_rgrid_pr
+FILEOT[23]=MOD3_2001_2050_BiasCorr_pr
+FILEOT[24]=MOD3_2001_2050_rgrid_pr
+	FILEOT[25]=EOBS_1951_2009_tas
+	FILEOT[26]=EOBS_1951_2009_pr
+
+FILEOT2[ 1]=MOD1_HIST_BiasCorr_tas
+FILEOT2[ 2]=MOD1_HIST_rgrid_tas
+FILEOT2[ 3]=MOD1_FUT_BiasCorr_tas
+FILEOT2[ 4]=MOD1_FUT_rgrid_tas
+FILEOT2[ 5]=MOD1_HIST_BiasCorr_pr
+FILEOT2[ 6]=MOD1_HIST_rgrid_pr
+FILEOT2[ 7]=MOD1_FUT_BiasCorr_pr
+FILEOT2[ 8]=MOD1_FUT_rgrid_pr
+	FILEOT2[ 9]=MOD2_HIST_BiasCorr_tas
+	FILEOT2[10]=MOD2_HIST_rgrid_tas
+	FILEOT2[11]=MOD2_FUT_BiasCorr_tas
+	FILEOT2[12]=MOD2_FUT_rgrid_tas
+	FILEOT2[13]=MOD2_HIST_BiasCorr_pr
+	FILEOT2[14]=MOD2_HIST_rgrid_pr
+	FILEOT2[15]=MOD2_FUT_BiasCorr_pr
+	FILEOT2[16]=MOD2_FUT_rgrid_pr
+FILEOT2[17]=MOD3_HIST_BiasCorr_tas
+FILEOT2[18]=MOD3_HIST_rgrid_tas
+FILEOT2[19]=MOD3_FUT_BiasCorr_tas
+FILEOT2[20]=MOD3_FUT_rgrid_tas
+FILEOT2[21]=MOD3_HIST_BiasCorr_pr
+FILEOT2[22]=MOD3_HIST_rgrid_pr
+FILEOT2[23]=MOD3_FUT_BiasCorr_pr
+FILEOT2[24]=MOD3_FUT_rgrid_pr
+	FILEOT2[25]=EOBS_HIST_tas
+	FILEOT2[26]=EOBS_HIST_pr
+
+for FILE in 1; do
+echo "------------- FILE:"${FILE}
+    for STAT in {1..7}; do
+        echo "--------- STAT:"${STAT}
+        echo ${FILEOT[${FILE}]}_STAT${STAT}.nc  
+        echo ${FILEOT2[${FILE}]}_STAT${STAT}.nc
+        mv  ${FILEOT[${FILE}]}_STAT${STAT}.nc  ${FILEOT2[${FILE}]}_STAT${STAT}.nc
+    done
+done
