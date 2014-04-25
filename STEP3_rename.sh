@@ -53,7 +53,7 @@ FILEOT2[24]=MOD3_FUT_rgrid_pr
 	FILEOT2[25]=EOBS_HIST_tas
 	FILEOT2[26]=EOBS_HIST_pr
 
-for FILE in 1; do
+for FILE in {1..26}; do
 echo "------------- FILE:"${FILE}
     for STAT in {1..7}; do
         echo "--------- STAT:"${STAT}
