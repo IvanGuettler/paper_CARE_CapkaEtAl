@@ -57,8 +57,8 @@ LON[1]=13.9453;   LAT[1]=45.2408; # Pazin
 LON[2]=13.9300;   LAT[2]=45.4308; # Abrami
 LON[3]=13.6036;   LAT[3]=45.2203; # Porec
 LON[4]=13.5833;   LAT[4]=45.3333; # Novigrad Celega
-LON[5]=17.6431;   LAT[5]=43.0464; # Metković
-LON[6]=17.4428;   LAT[6]=43.0475; # Ploče
+LON[5]=17.6431;   LAT[5]=43.0464; # Metkovic
+LON[6]=17.4428;   LAT[6]=43.0475; # Ploce
 LON[7]=17.5586;   LAT[7]=43.0175; # Opuzen
 
 DATADIR=/home/ivan/Dropbox/2013_projekt_IPA_DrinkAdria/DIR_analiza/from_BOKU_server

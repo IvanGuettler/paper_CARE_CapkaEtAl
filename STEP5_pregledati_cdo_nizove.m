@@ -1,10 +1,10 @@
 close all; clear all; clc
 
 %(1) ucitati DHMZ podatke 1961-2012
-load('SezoneObo.mat');
+load('./from_DHMZ_KC/SezoneObo.mat');
     obor_mm=ulazSvi(:,2:end,:);
     obor_ss=SezoneSvi(:,1:5,:);
-load('SezoneTemp.mat');
+load('./from_DHMZ_KC/SezoneTemp.mat');
     temp_mm=ulazSvi(:,2:end,:);
     temp_ss=SezoneSvi(:,1:5,:);
      

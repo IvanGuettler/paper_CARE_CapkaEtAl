@@ -17,13 +17,13 @@ postaje(7,:)=[17+33/60+31/3600, 43+1/60+ 3/3600];  texT{7}='Opuzen';
 
 [X,Y]=meshgrid(longi,lati);
 %%
-figure(1); set(gcf,'Position',[110 135 1289 548])
-subplot(1,2,1)
+figure(1); set(gcf,'Position',[251 6 939 781])
+subplot(2,2,1)
     pcolorjw(X,Y,double(elea')); hold on
             plot(granica(:,1),granica(:,2),'r');                         hold on
             plot(obala(:,1),obala(:,2),'r');                             hold on
     
-subplot(1,2,2)
+subplot(2,2,2)
     pcolorjw(X,Y,double(elea')); hold on
             plot(granica(:,1),granica(:,2),'r');                         hold on
             plot(obala(:,1),obala(:,2),'r');                             hold on
@@ -32,7 +32,27 @@ subplot(1,2,2)
     ylim([42 48])
     for STAT=[1:7]; 
        ttt=text(postaje(STAT,1)-0.05,postaje(STAT,2)-0.025,texT{STAT}); set(ttt,'Color','green');
-    end
-    
+    end   
     caxis([0 2500])
-    
+ subplot(2,2,3)
+    pcolorjw(X,Y,double(elea')); hold on
+            plot(granica(:,1),granica(:,2),'r');                         hold on
+            plot(obala(:,1),obala(:,2),'r');                             hold on
+            plot(postaje(:,1),postaje(:,2),'x g')
+    xlim([13.4 14.4])
+    ylim([44.9 45.6])
+    for STAT=[1:7]; 
+       ttt=text(postaje(STAT,1)-0.05,postaje(STAT,2)-0.025,texT{STAT}); set(ttt,'Color','green');
+    end   
+    caxis([0 2500])   
+ subplot(2,2,4)
+    pcolorjw(X,Y,double(elea')); hold on
+            plot(granica(:,1),granica(:,2),'r');                         hold on
+            plot(obala(:,1),obala(:,2),'r');                             hold on
+            plot(postaje(:,1),postaje(:,2),'x g')
+    xlim([17.13 17.9])
+    ylim([42.8  43.2])
+    for STAT=[1:7]; 
+       ttt=text(postaje(STAT,1)-0.05,postaje(STAT,2)-0.025,texT{STAT}); set(ttt,'Color','green');
+    end   
+    caxis([0 2500])   
