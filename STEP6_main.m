@@ -8,34 +8,37 @@ close all; clear all; clc
 %2016-02-29 xlswrite commented. Check latter how to do this
 
 pkg load statistics
+graphics_toolkit fltk %fltk / gnuplot
+
 
 TYPEtxt={'rgrid', 'BiasCorr'};
-TYPEtxt2_corr={'RCM', 'RCMcorr','RCMcorr adj'};
+TYPEtxt2_corr={'RCM', 'RCMcorr','RCMcorr_adj'};
+
 %--------------------------------------------------------------------------
 %Veza DHMZ mjerenja <-> tocke modela
 %--------------------------------------------------------------------------
 %T2m
-OBStoRCM1=[5 6 7 4 1 2 3];
+	OBStoRCM1=[5 6 7 4 1 2 3];
 %R
-OBStoRCM2=[1 3 4 2 13 14 15];
+	OBStoRCM2=[1 3 4 2 13 14 15];
 %--------------------------------------------------------------------------
 %Redoslijed stanica iz RCM-a
 %--------------------------------------------------------------------------
-%LON[1]=13.9453;   LAT[1]=45.2408; # Pazin
-%LON[2]=13.9300;   LAT[2]=45.4308; # Abrami
-%LON[3]=13.6036;   LAT[3]=45.2203; # Porec
-%LON[4]=13.5833;   LAT[4]=45.3333; # Novigrad Celega
-%LON[5]=17.6431;   LAT[5]=43.0464; # Metkovic
-%LON[6]=17.4428;   LAT[6]=43.0475; # Ploce
-%LON[7]=17.5586;   LAT[7]=43.0175; # Opuzen
-StationTXT={'Pazin','Abrami','Porec','Celega','Metkovic','Ploce','Opuzen'};
+	%LON[1]=13.9453;   LAT[1]=45.2408; # Pazin
+	%LON[2]=13.9300;   LAT[2]=45.4308; # Abrami
+	%LON[3]=13.6036;   LAT[3]=45.2203; # Porec
+	%LON[4]=13.5833;   LAT[4]=45.3333; # Novigrad Celega
+	%LON[5]=17.6431;   LAT[5]=43.0464; # Metkovic
+	%LON[6]=17.4428;   LAT[6]=43.0475; # Ploce
+	%LON[7]=17.5586;   LAT[7]=43.0175; # Opuzen
+	StationTXT={'Pazin','Abrami','Porec','Celega','Metkovic','Ploce','Opuzen'};
 
-B=0;
+B=0; %brojac
 %for STAT=[1:7];
 for STAT=[1]; 
-for TYPE=[2]; 
-disp(num2str(STAT))
-B=B+1;
+	for TYPE=[2]; 
+		disp(num2str(STAT))
+		B=B+1;
        
 % % % %-------------------------------------------------------------------
 % % %        % ---> citam T2m
@@ -244,75 +247,85 @@ disp('Racunam...')
 
 %%            
 %-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
        % ---> crtam T2m RCMcorr
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
 %-------------------------------------------------------------------
 disp('Crtam...')
-       figure(B); set(gcf,'Position',[314 33 560 795],'PaperPositionMode','auto','Visible','on')
-            subplot(4,2,1)
+       h=figure(B);
+            plot_mn(4,2,1,[0.05 0.1 0.9 0.85],0.05,0.05)
                 plot([1:12],AC_P0_tas_RCM_mom(:,2),'b'); hold on
                 plot([1:12],AC_P0_tas_RCM_mom(:,1),'k'); hold on
                 plot([1:12],AC_P0_tas_RCM_mom(:,3),'m'); hold on
                 plot([1:12],AC_P0_tas_EOBS_mom,'g','Linewidth',2); hold on
                 plot([1:12],AC_P0_tas_DHMZ_mom,'r','Linewidth',2); hold on
                     xlim([1  12])
-                    %ylim([0  30])
+%                   ylim([0  30])
                     if (TYPE==2); title([StationTXT{STAT},' ',TYPEtxt2_corr{TYPE}]); end
                     ylabel('mean t (deg C)'); xlabel('time (month)')
-                    ttt=text(-0.1,1.15,'a)','units','normalized'); 
+%                    ttt=text(-0.1,1.15,'a)','units','normalized'); 
                 
-            subplot(4,2,3)
+            plot_mn(4,2,3,[0.05 0.1 0.9 0.85],0.05,0.05)
                 plot([1:12],AC_P0_tas_RCM_std(:,2),'b'); hold on
                 plot([1:12],AC_P0_tas_RCM_std(:,1),'k'); hold on
                 plot([1:12],AC_P0_tas_RCM_std(:,3),'m'); hold on
                 plot([1:12],AC_P0_tas_EOBS_std,'g','Linewidth',2); hold on
                 plot([1:12],AC_P0_tas_DHMZ_std,'r','Linewidth',2); hold on
                     xlim([1  12])
-                    %ylim([0.5 3])
+%                   ylim([0.5 3])
                     ylabel('std t (deg C)'); xlabel('time (month)')
-                    ttt=text(-0.1,1.15,'c)','units','normalized');
+%                    ttt=text(-0.1,1.15,'c)','units','normalized');
 
-            subplot(4,2,5)                    
+            plot_mn(4,2,5,[0.05 0.1 0.9 0.85],0.05,0.05)                    
                 plot([1:50],TS_HIST_tas_RCM_YMmean(:,2),'b'); hold on
                 plot([1:50],TS_HIST_tas_RCM_YMmean(:,1),'k'); hold on
                 plot([1:50],TS_HIST_tas_RCM_YMmean(:,3),'m'); hold on
                 plot([1:50],TS_HIST_tas_EOBS_YMmean(1:50),'g','Linewidth',2); hold on
                 plot([1:50],TS_HIST_tas_DHMZ_YMmean(1:50),'r','Linewidth',2); hold on
-                %plot([11 11 NaN 40 40],[0 30 NaN 0 30],'y','Linewidth',3);
+%               plot([11 11 NaN 40 40],[0 30 NaN 0 30],'y','Linewidth',3);
                     xlim([1  50]); set(gca,'xtick',[1 11 21 31 41 50],'xticklabel',{'1951', '1961', '1971', '1981', '1991', '2000'});
-                    %ylim([5  18])        
+%                   ylim([5  18])        
                     ylabel('mean t (deg C)'); xlabel('time (year)')
-                    ttt=text(-0.1,1.15,'e)','units','normalized');
+%                   ttt=text(-0.1,1.15,'e)','units','normalized');
                     udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,1))/(12*30)*100*10)/10),'%'];
                     text(0.05,0.9,udio,'units','normalized')
                     
-            subplot(4,2,7)                    
+            plot_mn(4,2,7,[0.05 0.1 0.9 0.85],0.05,0.05)                    
                 stairs(ecdf_tas_RCM_YMmean_P0(:,2),ecdf_y,'b'); hold on
                 stairs(ecdf_tas_RCM_YMmean_P0(:,1),ecdf_y,'k'); hold on
                 stairs(ecdf_tas_RCM_YMmean_P0(:,3),ecdf_y,'m'); hold on
                 stairs(ecdf_tas_EOBS_YMmean_P0,ecdf_y,'g','Linewidth',2); hold on
                 stairs(ecdf_tas_DHMZ_YMmean_P0,ecdf_y_DHMZ_tas,'r','Linewidth',2); hold on
-                    %xlim([5  18])                       
+%                   xlim([5  18])                       
                     ylim([0   1])
                     xlabel('mean annual t (deg C)'); ylabel('CDF');  set(gca,'ytick',[0:0.2:1],'yticklabel',num2str([0:0.2:1]'));
-                    ttt=text(-0.1,1.15,'g)','units','normalized');
+%                   ttt=text(-0.1,1.15,'g)','units','normalized');
             
 %-------------------------------------------------------------------             
-       % ---> crtam R RCMcorr
+ % ---> crtam R RCMcorr
 %-------------------------------------------------------------------
-            subplot(4,2,2)
+            plot_mn(4,2,2,[0.05 0.1 0.9 0.85],0.05,0.05)
                 plot([1:12],AC_P0_pr_RCM_mom(:,2),'b'); hold on
                 plot([1:12],AC_P0_pr_RCM_mom(:,1),'k'); hold on
                 plot([1:12],AC_P0_pr_RCM_mom(:,3),'m'); hold on
                 plot([1:12],AC_P0_pr_EOBS_mom,'g','Linewidth',2); hold on
                 plot([1:12],AC_P0_pr_DHMZ_mom,'r','Linewidth',2); hold on
                     xlim([1  12])
-                    %ylim([20 300])
+%                   ylim([20 300])
                     ylabel('mean P (mm)'); xlabel('time (month)')
                     if (TYPE==2); title([StationTXT{STAT},' ',TYPEtxt2_corr{TYPE}]); end
                     lll=legend('RegCM3','Aladin','Promes','EOBS','Local OBS','location','northwest'); set(lll,'FontSize',6,'Orientation','horizontal','Position',[0.147 0.9639 0.7583 0.02264]);
-                    ttt=text(-0.1,1.15,'b)','units','normalized');
+%                   ttt=text(-0.1,1.15,'b)','units','normalized');
 
-            subplot(4,2,4)
+            plot_mn(4,2,4,[0.05 0.1 0.9 0.85],0.05,0.05)
                 plot([1:12],AC_P0_pr_RCM_cv(:,2),'b'); hold on
                 plot([1:12],AC_P0_pr_RCM_cv(:,1),'k'); hold on
                 plot([1:12],AC_P0_pr_RCM_cv(:,3),'m'); hold on
@@ -320,7 +333,7 @@ disp('Crtam...')
                 plot([1:12],AC_P0_pr_DHMZ_cv,'r','Linewidth',2); hold on
                     ylabel('coeff. var. P')
                     xlabel('time (month)'); xlim([1 12])                    
-                    ttt=text(-0.1,1.15,'d)','units','normalized');
+%                   ttt=text(-0.1,1.15,'d)','units','normalized');
                     
 % % %                 [haxes,hline1,hline2] = plotyy([1:12],AC_P0_pr_RCM_std(:,2),[1:12],AC_P0_pr_RCM_cv(:,2),'plot','plot'); hold on; 
 % % %                     set(hline1,'color','b')
@@ -360,188 +373,247 @@ disp('Crtam...')
 % % %                     set(get(haxes(1),'ylabel'),'string','std P (mm)');
 % % %                     set(get(haxes(2),'ylabel'),'string','coeff. var. P');                    
                    
-            subplot(4,2,6)                                                 % *12 jer godisnji srednjak pretvaram u godisnju sumu                    
+            plot_mn(4,2,6,[0.05 0.1 0.9 0.85],0.01,0.06)    % *12 jer godisnji srednjak pretvaram u godisnju sumu                    
                 plot([1:50],TS_HIST_pr_RCM_YMmean(:,2)*12,'b'); hold on
                 plot([1:50],TS_HIST_pr_RCM_YMmean(:,1)*12,'k'); hold on
                 plot([1:50],TS_HIST_pr_RCM_YMmean(:,3)*12,'m'); hold on
                 plot([1:50],TS_HIST_pr_EOBS_YMmean(1:50)*12,'g','Linewidth',2); hold on
                 plot([1:50],TS_HIST_pr_DHMZ_YMmean(1:50),'r','Linewidth',2); hold on
-                %plot([11 11 NaN 40 40],[500 3000 NaN 500 3000],'y','Linewidth',3);
+%               plot([11 11 NaN 40 40],[500 3000 NaN 500 3000],'y','Linewidth',3);
                     xlim([1  50]); set(gca,'xtick',[1 11 21 31 41 50],'xticklabel',{'1951', '1961', '1971', '1981', '1991', '2000'});
-                    %ylim([300 3000])    
+%                   ylim([300 3000])    
                     ylabel('P amount (mm)'); xlabel('time (year)')
-                    ttt=text(-0.1,1.15,'f)','units','normalized');
+%                   ttt=text(-0.1,1.15,'f)','units','normalized');
                     udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,2))/(12*30)*100*10)/10),'%'];
                     text(0.05,0.9,udio,'units','normalized')
                     
-            subplot(4,2,8)                                                 % *12 jer godisnji srednjak pretvaram u godisnju sumu          
+            plot_mn(4,2,8,[0.05 0.1 0.9 0.85],0.05,0.05)  % *12 jer godisnji srednjak pretvaram u godisnju sumu
                 stairs(ecdf_pr_RCM_YMmean_P0(:,2)*12,ecdf_y,'b'); hold on
                 stairs(ecdf_pr_RCM_YMmean_P0(:,1)*12,ecdf_y,'k'); hold on
                 stairs(ecdf_pr_RCM_YMmean_P0(:,3)*12,ecdf_y,'m'); hold on
                 stairs(ecdf_pr_EOBS_YMmean_P0*12,ecdf_y,'g','Linewidth',2); hold on
                 stairs(ecdf_pr_DHMZ_YMmean_P0,ecdf_y_DHMZ_pr,'r','Linewidth',2); hold on
-                    %xlim([300 3000])                     
+%                   xlim([300 3000])                     
                     ylim([0  1]) 
                     xlabel('annual P amount (mm)'); ylabel('CDF'); set(gca,'ytick',[0:0.2:1],'yticklabel',num2str([0:0.2:1]'));
-                    ttt=text(-0.1,1.15,'h)','units','normalized');
-                    
-                    filenameJPG=[StationTXT{STAT},'_',TYPEtxt2_corr{TYPE},'.jpg'];
-                    filenameEPS=[StationTXT{STAT},'_',TYPEtxt2_corr{TYPE},'.eps'];
-                    %%%print(gcf,filenameJPG,'-djpeg');
-                    print(gcf,filenameEPS,'-depsc');
-                    
-%%              
-xxx=[1:12];
+%                   ttt=text(-0.1,1.15,'h)','units','normalized');
+
+%		    set(h,'Position',[314 33 560 795])
+                    filenamePNG=[StationTXT{STAT},'_',TYPEtxt2_corr{TYPE},'.png'];
+                    print(h,filenamePNG,'-dpng','-S500,600');
+%%             
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------
+
 %--------------------------------------------------------------------------Racun delta korekcija
 disp('Racunam korekcije...')
+	    xxx=[1:12];
             if (TYPE==2)
                 for MOD=[1:3]
                     corr_t2m(:,MOD)=AC_P0_tas_RCM_mom(:,MOD)-AC_P0_tas_DHMZ_mom';               
                       corr_R(:,MOD)=AC_P0_pr_RCM_mom(:,MOD) -AC_P0_pr_DHMZ_mom';
+                      divc_R(:,MOD)=AC_P0_pr_RCM_mom(:,MOD)./AC_P0_pr_DHMZ_mom';
                 end
-%--------------------------------------------------------------------------Crtanje delta korekcija                           
-                B2=B+100;
-                figure(B2); set(gcf,'Position',[281 409 1019 389],'PaperPositionMode','auto','Visible','on')
-                    subplot(1,2,1)
+%--------------------------------------------------------------------------Crtanje delta i divc korekcija             
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------
+               B2=B+100;
+               h=figure(B2); 
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------
+                    plot_mn(1,3,1)
                         plot([1:12],corr_t2m(:,2),'b','Linewidth',1.5); hold on; temp2=corr_t2m(:,2);
                         plot([1:12],corr_t2m(:,1),'k','Linewidth',1.5); hold on; temp1=corr_t2m(:,1);
                         plot([1:12],corr_t2m(:,3),'m','Linewidth',1.5); hold on; temp3=corr_t2m(:,3);
-                                ind=isfinite(AC_t2m_DHMZ_vs_RCM_sig(:,2)); plot(xxx(ind),temp2(ind),'o b','MarkerFaceColor','b'); hold on
-                                ind=isfinite(AC_t2m_DHMZ_vs_RCM_sig(:,1)); plot(xxx(ind),temp1(ind),'o k','MarkerFaceColor','k'); hold on
-                                ind=isfinite(AC_t2m_DHMZ_vs_RCM_sig(:,3)); plot(xxx(ind),temp3(ind),'o m','MarkerFaceColor','m'); hold on                        
+          ind=isfinite(AC_t2m_DHMZ_vs_RCM_sig(:,2)); plot(xxx(ind),temp2(ind),'o b','MarkerFaceColor','b'); hold on
+          ind=isfinite(AC_t2m_DHMZ_vs_RCM_sig(:,1)); plot(xxx(ind),temp1(ind),'o k','MarkerFaceColor','k'); hold on
+          ind=isfinite(AC_t2m_DHMZ_vs_RCM_sig(:,3)); plot(xxx(ind),temp3(ind),'o m','MarkerFaceColor','m'); hold on                        
                             xlim([1 12]); %ylim([-2.2 2.2]);
                             xlabel('time (month)','fontsize',12); ylabel('adj. for t (deg C)','fontsize',12)
                             title([StationTXT{STAT},'; RCMcorr-DHMZ'] ,'Fontsize',12);
-                            ttt=text(-0.15,1,'a)','units','normalized'); set(ttt,'fontsize',14);
+%                           ttt=text(-0.15,1,'a)','units','normalized'); set(ttt,'fontsize',14);
                             grid on
                             set(gca,'Fontsize',12)                    
                             udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,1))/(12*30)*100*10)/10),'%'];
                             text(0.05,0.9,udio,'units','normalized')
-
                             
-                     subplot(1,2,2)
+                     plot_mn(1,3,2)
                         plot([1:12],corr_R(:,2),'b','Linewidth',1.5); hold on; temp2=corr_R(:,2);
                         plot([1:12],corr_R(:,1),'k','Linewidth',1.5); hold on; temp1=corr_R(:,1);
                         plot([1:12],corr_R(:,3),'m','Linewidth',1.5); hold on; temp3=corr_R(:,3);
-                                ind=isfinite(AC_pr_DHMZ_vs_RCM_sig(:,2)); plot(xxx(ind),temp2(ind),'o b','MarkerFaceColor','b'); hold on
-                                ind=isfinite(AC_pr_DHMZ_vs_RCM_sig(:,1)); plot(xxx(ind),temp1(ind),'o k','MarkerFaceColor','k'); hold on
-                                ind=isfinite(AC_pr_DHMZ_vs_RCM_sig(:,3)); plot(xxx(ind),temp3(ind),'o m','MarkerFaceColor','m'); hold on
+          ind=isfinite(AC_pr_DHMZ_vs_RCM_sig(:,2)); plot(xxx(ind),temp2(ind),'o b','MarkerFaceColor','b'); hold on
+          ind=isfinite(AC_pr_DHMZ_vs_RCM_sig(:,1)); plot(xxx(ind),temp1(ind),'o k','MarkerFaceColor','k'); hold on
+          ind=isfinite(AC_pr_DHMZ_vs_RCM_sig(:,3)); plot(xxx(ind),temp3(ind),'o m','MarkerFaceColor','m'); hold on
+
                             xlim([1 12]); %ylim([-85 85]);
                             title([StationTXT{STAT},'; RCMcorr-DHMZ'],'Fontsize',12)
                             xlabel('time (month)','fontsize',12); ylabel('adj. for P (mm)','fontsize',12)
-                            ttt=text(-0.15,1,'b)','units','normalized'); set(ttt,'fontsize',14);        
+%                           ttt=text(-0.15,1,'b)','units','normalized'); set(ttt,'fontsize',14);        
                             legend('RegCM','Aladin','Promes','location','southwest')
                             grid on
                             set(gca,'Fontsize',12)
                             udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,2))/(12*30)*100*10)/10),'%'];
                             text(0.05,0.9,udio,'units','normalized')
+
+                     plot_mn(1,3,3)
+                        plot([1:12],divc_R(:,2),'b','Linewidth',1.5); hold on; temp2=corr_R(:,2);
+                        plot([1:12],divc_R(:,1),'k','Linewidth',1.5); hold on; temp1=corr_R(:,1);
+                        plot([1:12],divc_R(:,3),'m','Linewidth',1.5); hold on; temp3=corr_R(:,3);
+          ind=isfinite(AC_pr_DHMZ_vs_RCM_sig(:,2)); plot(xxx(ind),temp2(ind),'o b','MarkerFaceColor','b'); hold on
+          ind=isfinite(AC_pr_DHMZ_vs_RCM_sig(:,1)); plot(xxx(ind),temp1(ind),'o k','MarkerFaceColor','k'); hold on
+          ind=isfinite(AC_pr_DHMZ_vs_RCM_sig(:,3)); plot(xxx(ind),temp3(ind),'o m','MarkerFaceColor','m'); hold on
+
+                            xlim([1 12]); %ylim([-85 85]);
+                            title([StationTXT{STAT},'; RCMcorr/DHMZ'],'Fontsize',12)
+                            xlabel('time (month)','fontsize',12); ylabel('adj. for P (mm)','fontsize',12)
+%                           ttt=text(-0.15,1,'b)','units','normalized'); set(ttt,'fontsize',14);        
+                            grid on
+                            set(gca,'Fontsize',12)
+                            udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,2))/(12*30)*100*10)/10),'%'];
+                            text(0.05,0.9,udio,'units','normalized')
                             
-                    filenameJPG=[StationTXT{STAT},'_adjustment.jpg'];
-                    filenameEPS=[StationTXT{STAT},'_adjustment.eps'];
-                    %%%print(gcf,filenameJPG,'-djpeg');
-                    print(gcf,filenameEPS,'-depsc');       
+                    filenamePNG=[StationTXT{STAT},'_adjustment.png'];
+                    print(h,filenamePNG,'-dpng','-S1800,600');
 %%                 
-%--------------------------------------------------------------------------Primjena delta korekcija i prateci racun
+%--------------------------------------------------------------------------Primjena delta i divc korekcija i prateci racun
                 for MOD=[1:3]
                     
-temp=squeeze(cell2mat(MM(:,MOD,1,1))); temp=reshape(temp,12,50); temp=temp'; temp=temp-repmat(corr_t2m(:,MOD)',50,1); RCMcorr_adj_corr(:,MOD,1,1)=reshape(temp',12*50,1); clear temp
-temp=squeeze(cell2mat(MM(:,MOD,1,2))); temp=reshape(temp,12,50); temp=temp'; temp=temp-repmat(corr_R(:,MOD)',50,1);   RCMcorr_adj_corr(:,MOD,1,2)=reshape(temp',12*50,1); clear temp   
-temp=squeeze(cell2mat(MM(:,MOD,2,1))); temp=reshape(temp,12,50); temp=temp'; temp=temp-repmat(corr_t2m(:,MOD)',50,1); RCMcorr_adj_corr(:,MOD,2,1)=reshape(temp',12*50,1); clear temp
-temp=squeeze(cell2mat(MM(:,MOD,2,2))); temp=reshape(temp,12,50); temp=temp'; temp=temp-repmat(corr_R(:,MOD)',50,1);   RCMcorr_adj_corr(:,MOD,2,2)=reshape(temp',12*50,1); clear temp   
+temp=squeeze(cell2mat(MM(:,MOD,1,1))); temp=reshape(temp,12,50); temp=temp'; temp=temp -repmat(corr_t2m(:,MOD)',50,1); RCMcorr_adj_corr(:,MOD,1,1)=reshape(temp',12*50,1); clear temp
+temp=squeeze(cell2mat(MM(:,MOD,1,2))); temp=reshape(temp,12,50); temp=temp'; temp=temp -repmat(  corr_R(:,MOD)',50,1); RCMcorr_adj_corr(:,MOD,1,2)=reshape(temp',12*50,1); clear temp   
+temp=squeeze(cell2mat(MM(:,MOD,1,2))); temp=reshape(temp,12,50); temp=temp'; temp=temp./repmat(  divc_R(:,MOD)',50,1); RCMcorr_adj_corr(:,MOD,1,3)=reshape(temp',12*50,1); clear temp   
+temp=squeeze(cell2mat(MM(:,MOD,2,1))); temp=reshape(temp,12,50); temp=temp'; temp=temp -repmat(corr_t2m(:,MOD)',50,1); RCMcorr_adj_corr(:,MOD,2,1)=reshape(temp',12*50,1); clear temp
+temp=squeeze(cell2mat(MM(:,MOD,2,2))); temp=reshape(temp,12,50); temp=temp'; temp=temp -repmat(  corr_R(:,MOD)',50,1); RCMcorr_adj_corr(:,MOD,2,2)=reshape(temp',12*50,1); clear temp   
+temp=squeeze(cell2mat(MM(:,MOD,2,2))); temp=reshape(temp,12,50); temp=temp'; temp=temp./repmat(  divc_R(:,MOD)',50,1); RCMcorr_adj_corr(:,MOD,2,3)=reshape(temp',12*50,1); clear temp   
 
-temp=reshape(squeeze(RCMcorr_adj_corr(10*12+1:40*12,MOD,1,1)),12,30); AC_P0_tas_RCM_mom_adj_corr(:,MOD)=nanmean(temp'); AC_P0_tas_RCM_std_adj_corr(:,MOD)=std(temp',1);         clear temp
-temp=reshape(squeeze(RCMcorr_adj_corr(10*12+1:40*12,MOD,1,2)),12,30); AC_P0_pr_RCM_mom_adj_corr(:,MOD)=nanmean(temp');  AC_P0_pr_RCM_std_adj_corr(:,MOD)=std(temp',1);          clear temp
-                                                                      AC_P0_pr_RCM_cv_adj_corr(:,MOD)=AC_P0_pr_RCM_std_adj_corr(:,MOD)./AC_P0_pr_RCM_mom_adj_corr(:,MOD);
+temp=reshape(squeeze(RCMcorr_adj_corr(10*12+1:40*12,MOD,1,1)),12,30); AC_P0_tas_RCM_mom_adj_corr(:,MOD) =nanmean(temp');  AC_P0_tas_RCM_std_adj_corr(:,MOD)=std(temp',1);  clear temp
+temp=reshape(squeeze(RCMcorr_adj_corr(10*12+1:40*12,MOD,1,2)),12,30); AC_P0_pr_RCM_mom_adj_corr1(:,MOD) =nanmean(temp');  AC_P0_pr_RCM_std_adj_corr1(:,MOD)=std(temp',1);  clear temp
+temp=reshape(squeeze(RCMcorr_adj_corr(10*12+1:40*12,MOD,1,3)),12,30); AC_P0_pr_RCM_mom_adj_corr2(:,MOD) =nanmean(temp');  AC_P0_pr_RCM_std_adj_corr2(:,MOD)=std(temp',1);  clear temp
+                                                                       AC_P0_pr_RCM_cv_adj_corr1(:,MOD) =AC_P0_pr_RCM_std_adj_corr1(:,MOD)./AC_P0_pr_RCM_mom_adj_corr1(:,MOD);
+                                                                       AC_P0_pr_RCM_cv_adj_corr2(:,MOD) =AC_P0_pr_RCM_std_adj_corr2(:,MOD)./AC_P0_pr_RCM_mom_adj_corr2(:,MOD);
                    
 temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,1,1)),12,50);  TS_HIST_tas_RCM_YMmean_adj_corr(:,MOD)=nanmean(temp);   clear temp                        
-temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,1,2)),12,50);  TS_HIST_pr_RCM_YMmean_adj_corr(:,MOD)=nanmean(temp);    clear temp                            
-temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,1)),12,50);  TS_FUT_tas_RCM_YMmean_adj_corr(:,MOD)=nanmean(temp);   clear temp                        
-temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,2)),12,50);  TS_FUT_pr_RCM_YMmean_adj_corr(:,MOD)=nanmean(temp);    clear temp  
+temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,1,2)),12,50);  TS_HIST_pr_RCM_YMmean_adj_corr1(:,MOD)=nanmean(temp);   clear temp                            
+temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,1,3)),12,50);  TS_HIST_pr_RCM_YMmean_adj_corr2(:,MOD)=nanmean(temp);   clear temp                            
+temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,1)),12,50);  TS_FUT_tas_RCM_YMmean_adj_corr(:,MOD) =nanmean(temp);   clear temp                        
+temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,2)),12,50);  TS_FUT_pr_RCM_YMmean_adj_corr1(:,MOD) =nanmean(temp);   clear temp  
+temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,3)),12,50);  TS_FUT_pr_RCM_YMmean_adj_corr2(:,MOD) =nanmean(temp);   clear temp  
                    
-                   ecdf_tas_RCM_YMmean_P0_adj_corr(:,MOD)=sort(TS_HIST_tas_RCM_YMmean_adj_corr(11:40,MOD)); 
-                   ecdf_pr_RCM_YMmean_P0_adj_corr(:,MOD) =sort(TS_HIST_pr_RCM_YMmean_adj_corr(11:40,MOD)); 
+                   ecdf_tas_RCM_YMmean_P0_adj_corr(:,MOD) =sort(TS_HIST_tas_RCM_YMmean_adj_corr(11:40,MOD)); 
+                   ecdf_pr_RCM_YMmean_P0_adj_corr1(:,MOD) =sort(TS_HIST_pr_RCM_YMmean_adj_corr1(11:40,MOD)); 
+                   ecdf_pr_RCM_YMmean_P0_adj_corr2(:,MOD) =sort(TS_HIST_pr_RCM_YMmean_adj_corr2(11:40,MOD)); 
                    
                  end %MOD  
                  
+
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
 %-------------------------------------------------------------------     
        % ---> crtam T2m adj_corr
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
+%-------------------------------------------------------------------     
 %-------------------------------------------------------------------
 disp('Crtam adj_corr...')
        B3=B+200;
-       figure(B3); set(gcf,'Position',[879 31 560 795],'PaperPositionMode','auto','Visible','on')
-            subplot(4,2,1)
+       ht=figure(B3); 
+            plot_mn(4,2,1,[0.05 0.1 0.9 0.85],0.05,0.05)
                 plot([1:12],AC_P0_tas_RCM_mom_adj_corr(:,2),'b'); hold on
                 plot([1:12],AC_P0_tas_RCM_mom_adj_corr(:,1),'k'); hold on
                 plot([1:12],AC_P0_tas_RCM_mom_adj_corr(:,3),'m'); hold on
                 plot([1:12],AC_P0_tas_EOBS_mom,'g','Linewidth',2); hold on
                 plot([1:12],AC_P0_tas_DHMZ_mom,'r','Linewidth',2); hold on
                     xlim([1  12])
-                    %ylim([0  30])
+%                   ylim([0  30])
                     if (TYPE==2); title([StationTXT{STAT},' ',TYPEtxt2_corr{3}]); end
                     ylabel('mean t (deg C)'); xlabel('time (month)')
-                    ttt=text(-0.1,1.15,'a)','units','normalized'); 
+%                   ttt=text(-0.1,1.15,'a)','units','normalized'); 
                 
-            subplot(4,2,3)
+            plot_mn(4,2,3,[0.05 0.1 0.9 0.85],0.05,0.05)
                 plot([1:12],AC_P0_tas_RCM_std_adj_corr(:,2),'b'); hold on
                 plot([1:12],AC_P0_tas_RCM_std_adj_corr(:,1),'k'); hold on
                 plot([1:12],AC_P0_tas_RCM_std_adj_corr(:,3),'m'); hold on
                 plot([1:12],AC_P0_tas_EOBS_std,'g','Linewidth',2); hold on
                 plot([1:12],AC_P0_tas_DHMZ_std,'r','Linewidth',2); hold on
                     xlim([1  12])
-                    %ylim([0.5 3])
+%                   ylim([0.5 3])
                     ylabel('std t (deg C)'); xlabel('time (month)')
-                    ttt=text(-0.1,1.15,'c)','units','normalized');
+%                   ttt=text(-0.1,1.15,'c)','units','normalized');
                     
-            subplot(4,2,5)                    
+            plot_mn(4,2,5,[0.05 0.1 0.9 0.85],0.05,0.05)                    
                 plot([1:50],TS_HIST_tas_RCM_YMmean_adj_corr(:,2),'b'); hold on
                 plot([1:50],TS_HIST_tas_RCM_YMmean_adj_corr(:,1),'k'); hold on
                 plot([1:50],TS_HIST_tas_RCM_YMmean_adj_corr(:,3),'m'); hold on
                 plot([1:50],TS_HIST_tas_EOBS_YMmean(1:50),'g','Linewidth',2); hold on
                 plot([1:50],TS_HIST_tas_DHMZ_YMmean(1:50),'r','Linewidth',2); hold on
-                %>>> plot([11 11 NaN 40 40],[0 30 NaN 0 30],'y','Linewidth',3);
+%                   plot([11 11 NaN 40 40],[0 30 NaN 0 30],'y','Linewidth',3);
                     xlim([1  50]); set(gca,'xtick',[1 11 21 31 41 50],'xticklabel',{'1951', '1961', '1971', '1981', '1991', '2000'});
-                    %ylim([5  18])    
+%                   ylim([5  18])    
                     ylabel('mean t (deg C)'); xlabel('time (year)')
-                    ttt=text(-0.1,1.15,'e)','units','normalized');
+%                   ttt=text(-0.1,1.15,'e)','units','normalized');
                     udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,1))/(12*30)*100*10)/10),'%'];
                     text(0.05,0.9,udio,'units','normalized')
                     
-            subplot(4,2,7)                    
+            plot_mn(4,2,7,[0.05 0.1 0.9 0.85],0.05,0.05)                    
                 stairs(ecdf_tas_RCM_YMmean_P0_adj_corr(:,2),ecdf_y,'b'); hold on
                 stairs(ecdf_tas_RCM_YMmean_P0_adj_corr(:,1),ecdf_y,'k'); hold on
                 stairs(ecdf_tas_RCM_YMmean_P0_adj_corr(:,3),ecdf_y,'m'); hold on
                 stairs(ecdf_tas_EOBS_YMmean_P0,ecdf_y,'g','Linewidth',2); hold on
                 stairs(ecdf_tas_DHMZ_YMmean_P0,ecdf_y_DHMZ_tas,'r','Linewidth',2); hold on
-                    %xlim([5  18])                       
+%                   xlim([5  18])                       
                     ylim([0   1])
                     xlabel('mean annual t (deg C)'); ylabel('CDF');  set(gca,'ytick',[0:0.2:1],'yticklabel',num2str([0:0.2:1]'));
-                    ttt=text(-0.1,1.15,'g)','units','normalized');
+%                   ttt=text(-0.1,1.15,'g)','units','normalized');
                     
 %-------------------------------------------------------------------             
        % ---> crtam R RCMcorr adj
 %-------------------------------------------------------------------
-            subplot(4,2,2)
-                plot([1:12],AC_P0_pr_RCM_mom_adj_corr(:,2),'b'); hold on
-                plot([1:12],AC_P0_pr_RCM_mom_adj_corr(:,1),'k'); hold on
-                plot([1:12],AC_P0_pr_RCM_mom_adj_corr(:,3),'m'); hold on
+            plot_mn(4,2,2,[0.05 0.1 0.9 0.85],0.05,0.05)
+                plot([1:12],AC_P0_pr_RCM_mom_adj_corr1(:,2),'b'); hold on
+                plot([1:12],AC_P0_pr_RCM_mom_adj_corr1(:,1),'k'); hold on
+                plot([1:12],AC_P0_pr_RCM_mom_adj_corr1(:,3),'m'); hold on
                 plot([1:12],AC_P0_pr_EOBS_mom,'g','Linewidth',2); hold on
                 plot([1:12],AC_P0_pr_DHMZ_mom,'r','Linewidth',2); hold on
+                plot([1:12],AC_P0_pr_RCM_mom_adj_corr2(:,2),'b-s'); hold on
+                plot([1:12],AC_P0_pr_RCM_mom_adj_corr2(:,1),'k-s'); hold on
+                plot([1:12],AC_P0_pr_RCM_mom_adj_corr2(:,3),'m-s'); hold on
                     xlim([1   12])
-                    %ylim([20 300])
+%                   ylim([20 300])
                     ylabel('mean P (mm)'); xlabel('time (month)')
                     if (TYPE==2); title([StationTXT{STAT},' ',TYPEtxt2_corr{3}]); end
                     lll=legend('RegCM3','Aladin','Promes','EOBS','Local OBS','location','northwest'); set(lll,'FontSize',6,'Orientation','horizontal','Position',[0.147 0.9639 0.7583 0.02264]);
-                    ttt=text(-0.1,1.15,'b)','units','normalized');
+%                   ttt=text(-0.1,1.15,'b)','units','normalized');
                     
-            subplot(4,2,4)
-                plot([1:12],AC_P0_pr_RCM_cv_adj_corr(:,2),'b'); hold on
-                plot([1:12],AC_P0_pr_RCM_cv_adj_corr(:,1),'k'); hold on
-                plot([1:12],AC_P0_pr_RCM_cv_adj_corr(:,3),'m'); hold on
+            plot_mn(4,2,4,[0.05 0.1 0.9 0.85],0.05,0.05)
+                plot([1:12],AC_P0_pr_RCM_cv_adj_corr1(:,2),'b'); hold on
+                plot([1:12],AC_P0_pr_RCM_cv_adj_corr1(:,1),'k'); hold on
+                plot([1:12],AC_P0_pr_RCM_cv_adj_corr1(:,3),'m'); hold on
                 plot([1:12],AC_P0_pr_EOBS_cv,'g','Linewidth',2); hold on
                 plot([1:12],AC_P0_pr_DHMZ_cv,'r','Linewidth',2); hold on
+                plot([1:12],AC_P0_pr_RCM_cv_adj_corr2(:,2),'b-s'); hold on
+                plot([1:12],AC_P0_pr_RCM_cv_adj_corr2(:,1),'k-s'); hold on
+                plot([1:12],AC_P0_pr_RCM_cv_adj_corr2(:,3),'m-s'); hold on
                     ylabel('coeff. var. P')
                     xlabel('time (month)'); xlim([1 12])                    
-                    ttt=text(-0.1,1.15,'d)','units','normalized');
+%                   ttt=text(-0.1,1.15,'d)','units','normalized');
                     
 % % %                 [haxes,hline1,hline2] = plotyy([1:12],AC_P0_pr_RCM_std_adj_corr(:,2),[1:12],AC_P0_pr_RCM_cv_adj_corr(:,2),'plot','plot'); hold on; 
 % % %                     set(hline1,'color','b')
@@ -583,36 +655,49 @@ disp('Crtam adj_corr...')
                     
 
                     
-            subplot(4,2,6)                                                 % *12 jer godisnji srednjak pretvaram u godisnju sumu                    
-                plot([1:50],TS_HIST_pr_RCM_YMmean_adj_corr(:,2)*12,'b'); hold on
-                plot([1:50],TS_HIST_pr_RCM_YMmean_adj_corr(:,1)*12,'k'); hold on
-                plot([1:50],TS_HIST_pr_RCM_YMmean_adj_corr(:,3)*12,'m'); hold on
+            plot_mn(4,2,6,[0.05 0.1 0.9 0.85],0.05,0.05)  % *12 jer godisnji srednjak pretvaram u godisnju sumu                    
+                plot([1:50],TS_HIST_pr_RCM_YMmean_adj_corr1(:,2)*12,'b'); hold on
+                plot([1:50],TS_HIST_pr_RCM_YMmean_adj_corr1(:,1)*12,'k'); hold on
+                plot([1:50],TS_HIST_pr_RCM_YMmean_adj_corr1(:,3)*12,'m'); hold on
                 plot([1:50],TS_HIST_pr_EOBS_YMmean(1:50)*12,'g','Linewidth',2); hold on
-                plot([1:50],TS_HIST_pr_DHMZ_YMmean(1:50),'r','Linewidth',2); hold on
-                %>>> plot([11 11 NaN 40 40],[500 3000 NaN 500 3000],'y','Linewidth',3);
+                plot([1:50],TS_HIST_pr_DHMZ_YMmean(1:50),'r','Linewidth',2);    hold on
+                plot([1:50],TS_HIST_pr_RCM_YMmean_adj_corr2(:,2)*12,'b-o');     hold on
+                plot([1:50],TS_HIST_pr_RCM_YMmean_adj_corr2(:,1)*12,'k-o');     hold on
+                plot([1:50],TS_HIST_pr_RCM_YMmean_adj_corr2(:,3)*12,'m-o');     hold on
+%                   plot([11 11 NaN 40 40],[500 3000 NaN 500 3000],'y','Linewidth',3);
                     xlim([1  50]); set(gca,'xtick',[1 11 21 31 41 50],'xticklabel',{'1951', '1961', '1971', '1981', '1991', '2000'});
-                    %ylim([300 3000])    
+%                   ylim([300 3000])    
                     ylabel('P amount (mm)'); xlabel('time (year)')
-                    ttt=text(-0.1,1.15,'f)','units','normalized');
+%                   ttt=text(-0.1,1.15,'f)','units','normalized');
                     udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,2))/(12*30)*100*10)/10),'%'];
                     text(0.05,0.9,udio,'units','normalized')
 
-            subplot(4,2,8)                                                 % *12 jer godisnji srednjak pretvaram u godisnju sumu          
-                stairs(ecdf_pr_RCM_YMmean_P0_adj_corr(:,2)*12,ecdf_y,'b'); hold on
-                stairs(ecdf_pr_RCM_YMmean_P0_adj_corr(:,1)*12,ecdf_y,'k'); hold on
-                stairs(ecdf_pr_RCM_YMmean_P0_adj_corr(:,3)*12,ecdf_y,'m'); hold on
+            plot_mn(4,2,8,[0.05 0.1 0.9 0.85],0.05,0.05) % *12 jer godisnji srednjak pretvaram u godisnju sumu          
+                stairs(ecdf_pr_RCM_YMmean_P0_adj_corr1(:,2)*12,ecdf_y,'b'); hold on
+                stairs(ecdf_pr_RCM_YMmean_P0_adj_corr1(:,1)*12,ecdf_y,'k'); hold on
+                stairs(ecdf_pr_RCM_YMmean_P0_adj_corr1(:,3)*12,ecdf_y,'m'); hold on
                 stairs(ecdf_pr_EOBS_YMmean_P0*12,ecdf_y,'g','Linewidth',2); hold on
                 stairs(ecdf_pr_DHMZ_YMmean_P0,ecdf_y_DHMZ_pr,'r','Linewidth',2); hold on
-                    %xlim([300 3000])                     
+                stairs(ecdf_pr_RCM_YMmean_P0_adj_corr2(:,2)*12,ecdf_y,'b-o');    hold on
+                stairs(ecdf_pr_RCM_YMmean_P0_adj_corr2(:,1)*12,ecdf_y,'k-o');    hold on
+                stairs(ecdf_pr_RCM_YMmean_P0_adj_corr2(:,3)*12,ecdf_y,'m-o');    hold on
+%                   xlim([300 3000])                     
                     ylim([0  1]) 
                     xlabel('annual P amount (mm)'); ylabel('CDF'); set(gca,'ytick',[0:0.2:1],'yticklabel',num2str([0:0.2:1]'));
-                    ttt=text(-0.1,1.15,'h)','units','normalized');           
+%                   ttt=text(-0.1,1.15,'h)','units','normalized');           
                     
-                    filenameJPG=[StationTXT{STAT},'_',TYPEtxt2_corr{3},'.jpg'];
-                    filenameEPS=[StationTXT{STAT},'_',TYPEtxt2_corr{3},'.eps'];
-                    %%%print(gcf,filenameJPG,'-djpeg');
-                    print(gcf,filenameEPS,'-depsc');
-                    
+                    filenamePNG=[StationTXT{STAT},'_',TYPEtxt2_corr{3},'.png'];
+                    print(ht,filenamePNG,'-dpng','-S500,600');
+
+kuca
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 %%   
 disp('Crtam P1 vs P0...')
             %-------------------------------------------------------------- %Crtanje P1 vs P0: RCM corr
@@ -689,7 +774,7 @@ disp('Crtam P1 vs P0...')
                     filenameJPG=[StationTXT{STAT},'_',TYPEtxt2_corr{2},'_P1vsP0.jpg'];
                     filenameEPS=[StationTXT{STAT},'_',TYPEtxt2_corr{2},'_P1vsP0.eps'];
                     %%%print(gcf,filenameJPG,'-djpeg');
-                    print(gcf,filenameEPS,'-depsc');           
+                    print(gcf,filenameEPS,'-depsc2');           
 %%   
 disp('Crtam vremenske nizove RCMcorr...')
             %--------------------------------------------------------------
@@ -727,7 +812,7 @@ disp('Crtam vremenske nizove RCMcorr...')
                     filenameJPG=[StationTXT{STAT},'_RCMcorr_T2m_TS.jpg'];
                     filenameEPS=[StationTXT{STAT},'_RCMcorr_T2m_TS.eps'];
                     %%%print(gcf,filenameJPG,'-djpeg');
-                    print(gcf,filenameEPS,'-depsc');    
+                    print(gcf,filenameEPS,'-depsc2');    
                     
             %--------------------------------------------------------------
             % Crtanje vremenskih nizova PR
@@ -764,7 +849,7 @@ disp('Crtam vremenske nizove RCMcorr...')
                     filenameJPG=[StationTXT{STAT},'_RCMcorr_pr_TS.jpg'];
                     filenameEPS=[StationTXT{STAT},'_RCMcorr_pr_TS.eps'];
                     %%%print(gcf,filenameJPG,'-djpeg');
-                    print(gcf,filenameEPS,'-depsc'); 
+                    print(gcf,filenameEPS,'-depsc2'); 
 %%                
 disp('Crtam vremenske nizove RCMcorr_adj...')
             %--------------------------------------------------------------
@@ -796,7 +881,7 @@ disp('Crtam vremenske nizove RCMcorr_adj...')
                     filenameJPG=[StationTXT{STAT},'_RCMcorr_adj_T2m_TS.jpg'];
                     filenameEPS=[StationTXT{STAT},'_RCMcorr_adj_T2m_TS.eps'];
                     %%%print(gcf,filenameJPG,'-djpeg');
-                    print(gcf,filenameEPS,'-depsc');    
+                    print(gcf,filenameEPS,'-depsc2');    
                     
             %--------------------------------------------------------------
             % Crtanje vremenskih nizova PR
@@ -826,7 +911,7 @@ disp('Crtam vremenske nizove RCMcorr_adj...')
                     filenameJPG=[StationTXT{STAT},'_RCMcorr_adj_pr_TS.jpg'];
                     filenameEPS=[StationTXT{STAT},'_RCMcorr_adj_pr_TS.eps'];
                     %%%print(gcf,filenameJPG,'-djpeg');
-                    print(gcf,filenameEPS,'-depsc'); 
+                    print(gcf,filenameEPS,'-depsc2'); 
                     
             end % if TYPE 2
             
