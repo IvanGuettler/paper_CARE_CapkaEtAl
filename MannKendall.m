@@ -2,6 +2,9 @@ function [ H,p_value ] = MannKendall( input,alpha );
 
 %there should be no autocorrelation in residuals
 
+%IG
+ivan=isnan(input); input(ivan)=[];
+
 N=length(input);
 input=reshape(input,N,1);
 alpha=alpha/2;
