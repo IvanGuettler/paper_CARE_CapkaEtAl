@@ -152,7 +152,7 @@ disp('Crtam...')
                     xlim([1  50]); set(gca,'xtick',[1 11 21 31 41 50],'xticklabel',{'1951', '1961', '1971', '1981', '1991', '2000'});
                     ylim([13  18])        
                     ylabel('mean t (deg C)','Fontsize',FUTA); xlabel('time (year)','Fontsize',FUTA)
-                    ttt=text(-0.1,1.15,'g','units','normalized'); set(ttt,'Fontsize',FUTA);
+                    ttt=text(-0.05,1.15,'g','units','normalized'); set(ttt,'Fontsize',FUTA);
                     
                 subplot(4,3,3)
                 stairs(ecdf_tas_RCM_YMmean_P0(:,2),ecdf_y,'b'); hold on
@@ -176,8 +176,7 @@ disp('Crtam...')
                 plot([1:12],AC_P0_pr_DHMZ_mom,'r','Linewidth',2); hold on
                     xlim([1  12])
                     ylabel('mean P (mm)','Fontsize',FUTA); xlabel('time (month)','Fontsize',FUTA);
-                    lll=legend('RegCM3','Aladin','Promes','EOBS','Local OBS','location','northwest'); set(lll,'FontSize',FUTA-5,'Orientation','horizontal','Position',[0.147 0.9639 0.7583 0.02264]);
-                    ttt=text(-0.1,1.15,'e','units','normalized'); set(ttt,'Fontsize',FUTA);
+                    ttt=text(-0.1,1.15,'d','units','normalized'); set(ttt,'Fontsize',FUTA);
 
                 subplot(4,3,5);
                 plot([1:12],AC_P0_pr_RCM_cv(:,2),'b'); hold on
@@ -187,7 +186,7 @@ disp('Crtam...')
                 plot([1:12],AC_P0_pr_DHMZ_cv,'r','Linewidth',2); hold on
                     ylabel('coeff. var. P','Fontsize',FUTA)
                     xlabel('time (month)','Fontsize',FUTA); xlim([1 12])                    
-                    ttt=text(-0.1,1.15,'f','units','normalized'); set(ttt,'Fontsize',FUTA);
+                    ttt=text(-0.1,1.15,'e','units','normalized'); set(ttt,'Fontsize',FUTA);
                     
                 subplot(4,3,[10 11 12]);    % *12 jer godisnji srednjak pretvaram u godisnju sumu                    
                 plot([1:50],TS_HIST_pr_RCM_YMmean(:,2)*12,'b'); hold on
@@ -198,7 +197,8 @@ disp('Crtam...')
                     xlim([1  50]); set(gca,'xtick',[1 11 21 31 41 50],'xticklabel',{'1951', '1961', '1971', '1981', '1991', '2000'});
                     ylim([0 2000])    
                     ylabel('P amount (mm)','Fontsize',FUTA); xlabel('time (year)','Fontsize',FUTA)
-                    ttt=text(-0.1,1.15,'h','units','normalized','Fontsize',FUTA);
+                    ttt=text(-0.05,1.15,'h','units','normalized','Fontsize',FUTA);
+                    lll=legend('RegCM3','Aladin','Promes','EOBS','Local OBS'); set(lll,'FontSize',FUTA-4,'Position',[0.15 0.25 0.19 0.07]);
                     
                 subplot(4,3,6);  % *12 jer godisnji srednjak pretvaram u godisnju sumu
                 stairs(ecdf_pr_RCM_YMmean_P0(:,2)*12,ecdf_y,'b'); hold on
@@ -212,7 +212,7 @@ disp('Crtam...')
                     ttt=text(-0.1,1.15,'f','units','normalized'); set(ttt,'Fontsize',FUTA);
 
                     filenamePNG=[StationTXT{STAT},'_',TYPEtxt2_corr{TYPE},'.png'];
-                   print(h,filenamePNG,'-dpng','-S10000,750');
+                   print(h,filenamePNG,'-dpng','-S750,700');
 %%             
 %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------Racun delta korekcija
@@ -318,7 +318,7 @@ temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,3)),12,50);  TS_FUT_pr_RCM_YMmean_
 %-------------------------------------------------------------------     
        B3=B+200;
        ht=figure(B3); 
-            plot_mn(4,2,1,[XA 0.1 0.85 0.85],XRAZ,0.05)
+            subplot(4,3,1)
                 plot([1:12],AC_P0_tas_RCM_mom_adj_corr(:,2),'b'); hold on
                 plot([1:12],AC_P0_tas_RCM_mom_adj_corr(:,1),'k'); hold on
                 plot([1:12],AC_P0_tas_RCM_mom_adj_corr(:,3),'m'); hold on
@@ -328,7 +328,7 @@ temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,3)),12,50);  TS_FUT_pr_RCM_YMmean_
                     ylabel('mean t (deg C)','Fontsize',FUTA); xlabel('time (month)','Fontsize',FUTA)
                     ttt=text(-0.1,1.15,'a','units','normalized'); set(ttt,'Fontsize',FUTA)
                 
-            plot_mn(4,2,3,[XA 0.1 0.85 0.85],XRAZ,0.05)
+            subplot(4,3,2)
                 plot([1:12],AC_P0_tas_RCM_std_adj_corr(:,2),'b'); hold on
                 plot([1:12],AC_P0_tas_RCM_std_adj_corr(:,1),'k'); hold on
                 plot([1:12],AC_P0_tas_RCM_std_adj_corr(:,3),'m'); hold on
@@ -336,9 +336,9 @@ temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,3)),12,50);  TS_FUT_pr_RCM_YMmean_
                 plot([1:12],AC_P0_tas_DHMZ_std,'r','Linewidth',2); hold on
                     xlim([1  12])
                     ylabel('std t (deg C)','Fontsize',FUTA); xlabel('time (month)','Fontsize',FUTA)
-                    ttt=text(-0.1,1.15,'c','units','normalized'); set(ttt,'Fontsize',FUTA);
+                    ttt=text(-0.1,1.15,'b','units','normalized'); set(ttt,'Fontsize',FUTA);
                     
-            plot_mn(4,2,5,[XA 0.1 0.85 0.85],XRAZ,0.05)                    
+            subplot(4,3,[7 8 9])                    
                 plot([1:50],TS_HIST_tas_RCM_YMmean_adj_corr(:,2),'b'); hold on
                 plot([1:50],TS_HIST_tas_RCM_YMmean_adj_corr(:,1),'k'); hold on
                 plot([1:50],TS_HIST_tas_RCM_YMmean_adj_corr(:,3),'m'); hold on
@@ -347,9 +347,9 @@ temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,3)),12,50);  TS_FUT_pr_RCM_YMmean_
                     xlim([1  50]); set(gca,'xtick',[1 11 21 31 41 50],'xticklabel',{'1951', '1961', '1971', '1981', '1991', '2000'});
                     ylim([13  18])    
                     ylabel('mean t (deg C)','Fontsize',FUTA); xlabel('time (year)','Fontsize',FUTA)
-                    ttt=text(-0.1,1.15,'e','units','normalized'); set(ttt,'Fontsize',FUTA);
+                    ttt=text(-0.05,1.15,'g','units','normalized'); set(ttt,'Fontsize',FUTA);
                     
-            plot_mn(4,2,7,[XA 0.1 0.85 0.85],XRAZ,0.05)                    
+            subplot(4,3,3)                    
                 stairs(ecdf_tas_RCM_YMmean_P0_adj_corr(:,2),ecdf_y,'b'); hold on
                 stairs(ecdf_tas_RCM_YMmean_P0_adj_corr(:,1),ecdf_y,'k'); hold on
                 stairs(ecdf_tas_RCM_YMmean_P0_adj_corr(:,3),ecdf_y,'m'); hold on
@@ -358,12 +358,12 @@ temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,3)),12,50);  TS_FUT_pr_RCM_YMmean_
                     xlim([13  18])                       
                     ylim([0   1])
                     xlabel('mean annual t (deg C)','Fontsize',FUTA); ylabel('CDF','Fontsize',FUTA);  set(gca,'ytick',[0:0.2:1],'yticklabel',num2str([0:0.2:1]'));
-                   ttt=text(-0.1,1.15,'g','units','normalized'); set(ttt,'Fontsize',FUTA);
+                   ttt=text(-0.1,1.15,'c','units','normalized'); set(ttt,'Fontsize',FUTA);
                     
 %-------------------------------------------------------------------             
        % ---> crtam R RCMcorr adj
 %-------------------------------------------------------------------
-            plot_mn(4,2,2,[XA 0.1 0.85 0.85],XRAZ,0.05)
+            subplot(4,3,4);
                 plot([1:12],AC_P0_pr_RCM_mom_adj_corr1(:,2),'b'); hold on
                 plot([1:12],AC_P0_pr_RCM_mom_adj_corr1(:,1),'k'); hold on
                 plot([1:12],AC_P0_pr_RCM_mom_adj_corr1(:,3),'m'); hold on
@@ -374,10 +374,9 @@ temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,3)),12,50);  TS_FUT_pr_RCM_YMmean_
                 plot([1:12],AC_P0_pr_RCM_mom_adj_corr2(:,3),'m--'); hold on
                     xlim([1   12])
                     ylabel('mean P (mm)','Fontsize',FUTA); xlabel('time (month)','Fontsize',FUTA)
-                    lll=legend('RegCM3','Aladin','Promes','EOBS','Local OBS','location','northwest'); set(lll,'FontSize',FUTA-5,'Orientation','horizontal','Position',[0.147 0.9639 0.7583 0.02264]);
-                    ttt=text(-0.1,1.15,'b','units','normalized'); set(ttt,'Fontsize',FUTA);
+                    ttt=text(-0.1,1.15,'d','units','normalized'); set(ttt,'Fontsize',FUTA);
                     
-            plot_mn(4,2,4,[XA 0.1 0.85 0.85],XRAZ,0.05)
+            subplot(4,3,5);
                 plot([1:12],AC_P0_pr_RCM_cv_adj_corr1(:,2),'b'); hold on
                 plot([1:12],AC_P0_pr_RCM_cv_adj_corr1(:,1),'k'); hold on
                 plot([1:12],AC_P0_pr_RCM_cv_adj_corr1(:,3),'m'); hold on
@@ -388,9 +387,9 @@ temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,3)),12,50);  TS_FUT_pr_RCM_YMmean_
                 plot([1:12],AC_P0_pr_RCM_cv_adj_corr2(:,3),'m--'); hold on
                     ylabel('coeff. var. P','Fontsize',FUTA)
                     xlabel('time (month)','Fontsize',FUTA); xlim([1 12])                    
-                    ttt=text(-0.1,1.15,'d','units','normalized'); set(ttt,'Fontsize',FUTA)
+                    ttt=text(-0.1,1.15,'e','units','normalized'); set(ttt,'Fontsize',FUTA)
                     
-            plot_mn(4,2,6,[XA 0.1 0.85 0.85],XRAZ,0.05)  % *12 jer godisnji srednjak pretvaram u godisnju sumu                    
+            subplot(4,3,[10 11 12]);  % *12 jer godisnji srednjak pretvaram u godisnju sumu                    
                 plot([1:50],TS_HIST_pr_RCM_YMmean_adj_corr1(:,2)*12,'b'); hold on
                 plot([1:50],TS_HIST_pr_RCM_YMmean_adj_corr1(:,1)*12,'k'); hold on
                 plot([1:50],TS_HIST_pr_RCM_YMmean_adj_corr1(:,3)*12,'m'); hold on
@@ -399,13 +398,13 @@ temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,3)),12,50);  TS_FUT_pr_RCM_YMmean_
                 plot([1:50],TS_HIST_pr_RCM_YMmean_adj_corr2(:,2)*12,'b--');     hold on
                 plot([1:50],TS_HIST_pr_RCM_YMmean_adj_corr2(:,1)*12,'k--');     hold on
                 plot([1:50],TS_HIST_pr_RCM_YMmean_adj_corr2(:,3)*12,'m--');     hold on
-%                   plot([11 11 NaN 40 40],[500 3000 NaN 500 3000],'y','Linewidth',3);
                     xlim([1  50]); set(gca,'xtick',[1 11 21 31 41 50],'xticklabel',{'1951', '1961', '1971', '1981', '1991', '2000'});
                     ylim([0 2000])    
                     ylabel('P amount (mm)','Fontsize',FUTA); xlabel('time (year)','Fontsize',FUTA)
-                    ttt=text(-0.1,1.15,'f','units','normalized'); set(ttt,'Fontsize',FUTA);
+                    ttt=text(-0.05,1.15,'h','units','normalized'); set(ttt,'Fontsize',FUTA);
+                    lll=legend('RegCM3','Aladin','Promes','EOBS','Local OBS'); set(lll,'FontSize',FUTA-4,'Position',[0.15 0.25 0.19 0.07]);
 
-            plot_mn(4,2,8,[XA 0.1 0.85 0.85],XRAZ,0.05) % *12 jer godisnji srednjak pretvaram u godisnju sumu          
+            subplot(4,3,6) % *12 jer godisnji srednjak pretvaram u godisnju sumu          
                 stairs(ecdf_pr_RCM_YMmean_P0_adj_corr1(:,2)*12,ecdf_y,'b'); hold on
                 stairs(ecdf_pr_RCM_YMmean_P0_adj_corr1(:,1)*12,ecdf_y,'k'); hold on
                 stairs(ecdf_pr_RCM_YMmean_P0_adj_corr1(:,3)*12,ecdf_y,'m'); hold on
@@ -417,10 +416,10 @@ temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,3)),12,50);  TS_FUT_pr_RCM_YMmean_
                     xlim([0 2000])                     
                     ylim([0  1]) 
                     xlabel('annual P amount (mm)','Fontsize',FUTA); ylabel('CDF','Fontsize',FUTA); set(gca,'ytick',[0:0.2:1],'yticklabel',num2str([0:0.2:1]'));
-                    ttt=text(-0.1,1.15,'h','units','normalized'); set(ttt,'Fontsize',FUTA);
+                    ttt=text(-0.1,1.15,'f','units','normalized'); set(ttt,'Fontsize',FUTA);
                     
                     filenamePNG=[StationTXT{STAT},'_',TYPEtxt2_corr{3},'.png'];
-                    print(ht,filenamePNG,'-dpng','-S500,750');
+                    print(ht,filenamePNG,'-dpng','-S750,700');
 
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------
@@ -430,7 +429,7 @@ disp('Crtam P1 vs P0...')
            
             B4=B+400;
             ht=figure(B4); 
-                plot_mn(2,2,1)
+                subplot(2,2,1)
                               plot(xxx,AC_P1_tas_RCM_mom(:,2)-AC_P0_tas_RCM_mom(:,2),'b','Linewidth',1.5); hold on; temp2=AC_P1_tas_RCM_mom(:,2)-AC_P0_tas_RCM_mom(:,2);
                               plot(xxx,AC_P1_tas_RCM_mom(:,1)-AC_P0_tas_RCM_mom(:,1),'k','Linewidth',1.5); hold on; temp1=AC_P1_tas_RCM_mom(:,1)-AC_P0_tas_RCM_mom(:,1);
                               plot(xxx,AC_P1_tas_RCM_mom(:,3)-AC_P0_tas_RCM_mom(:,3),'m','Linewidth',1.5); hold on; temp3=AC_P1_tas_RCM_mom(:,3)-AC_P0_tas_RCM_mom(:,3);
@@ -444,7 +443,7 @@ disp('Crtam P1 vs P0...')
 	                        if (TYPE==2); title([StationTXT{STAT},' ',TYPEtxt2_corr{2}],'Fontsize',FUTA); end
         	                grid on
                 	        ttt=text(-0.1,1.1,'a','units','normalized'); set(ttt,'Fontsize',FUTA)
-                plot_mn(2,2,2)
+                subplot(2,2,2)
                               plot(xxx,(AC_P1_pr_RCM_mom(:,2)-AC_P0_pr_RCM_mom(:,2))./AC_P0_pr_RCM_mom(:,2)*100,'b','Linewidth',1.5); hold on; temp2=(AC_P1_pr_RCM_mom(:,2)-AC_P0_pr_RCM_mom(:,2))./AC_P0_pr_RCM_mom(:,2)*100;
                               plot(xxx,(AC_P1_pr_RCM_mom(:,1)-AC_P0_pr_RCM_mom(:,1))./AC_P0_pr_RCM_mom(:,1)*100,'k','Linewidth',1.5); hold on; temp1=(AC_P1_pr_RCM_mom(:,1)-AC_P0_pr_RCM_mom(:,1))./AC_P0_pr_RCM_mom(:,1)*100;
                               plot(xxx,(AC_P1_pr_RCM_mom(:,3)-AC_P0_pr_RCM_mom(:,3))./AC_P0_pr_RCM_mom(:,3)*100,'m','Linewidth',1.5); hold on; temp3=(AC_P1_pr_RCM_mom(:,3)-AC_P0_pr_RCM_mom(:,3))./AC_P0_pr_RCM_mom(:,3)*100;  
@@ -461,7 +460,7 @@ disp('Crtam P1 vs P0...')
                         	grid on
 	                        ttt=text(-0.1,1.1,'b','units','normalized'); set(ttt,'Fontsize',FUTA)
         	                legend('P1-P0 RegCM3','P1-P0 Aladin','P1-P0 Promes','location','northwest')
-                plot_mn(2,2,3)        
+                subplot(2,2,3)        
 	                    stairs(ecdf_tas_RCM_YMmean_P0(:,2),ecdf_y,'b'); hold on
         	            stairs(ecdf_tas_RCM_YMmean_P0(:,1),ecdf_y,'k'); hold on
                 	    stairs(ecdf_tas_RCM_YMmean_P0(:,3),ecdf_y,'m'); hold on
@@ -478,7 +477,7 @@ disp('Crtam P1 vs P0...')
 	             plot(13,0.5,'b o'); hold on; if (testKS(2)<0.05); plot(13,0.5,'b o','MarkerFaceColor','b'); hold on; end
         	     plot(13,0.6,'k o'); hold on; if (testKS(1)<0.05); plot(13,0.6,'k o','MarkerFaceColor','k'); hold on; end
 	             plot(13,0.7,'m o'); hold on; if (testKS(3)<0.05); plot(13,0.7,'m o','MarkerFaceColor','m'); hold on; end
-                plot_mn(2,2,4)
+                subplot(2,2,4)
                 	    stairs(ecdf_pr_RCM_YMmean_P0(:,2)*12,ecdf_y,'b'); hold on
         	            stairs(ecdf_pr_RCM_YMmean_P0(:,1)*12,ecdf_y,'k'); hold on
 	                    stairs(ecdf_pr_RCM_YMmean_P0(:,3)*12,ecdf_y,'m'); hold on
@@ -495,10 +494,10 @@ disp('Crtam P1 vs P0...')
 			           plot(600,0.5,'b o'); hold on; if (testKS(2)<0.05); plot(600,0.5,'b o','MarkerFaceColor','b'); hold on; end
 			           plot(600,0.6,'k o'); hold on; if (testKS(1)<0.05); plot(600,0.6,'k o','MarkerFaceColor','k'); hold on; end
 			           plot(600,0.7,'m o'); hold on; if (testKS(3)<0.05); plot(600,0.7,'m o','MarkerFaceColor','m'); hold on; end
-			           legend('P0 RegCM3','P0 Aladin','P0 Promes','P1 RegCM3','P1 Aladin','P1 Promes','location','southeast')
+			           lll=legend('P0 RegCM3','P0 Aladin','P0 Promes','P1 RegCM3','P1 Aladin','P1 Promes','location','southeast'); set(lll,'Fontsize',FUTA-5);
                         
                     filenamePNG=[StationTXT{STAT},'_P1_vs_P0_RCMcorr.png'];
-                    print(ht,filenamePNG,'-dpng','-S500,500');
+                    print(ht,filenamePNG,'-dpng','-S600,500');
 %--------------------------------------------------------------
 %--------------------------------------------------------------
 %%   
