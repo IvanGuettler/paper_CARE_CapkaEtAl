@@ -224,14 +224,9 @@ disp('Crtam...')
                     filenamePNG=[StationTXT{STAT},'_',TYPEtxt2_corr{TYPE},'.png'];
                    print(h,filenamePNG,'-dpng','-S500,750');
 %%             
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------
-
+%--------------------------------------------------------------------------
 %--------------------------------------------------------------------------Racun delta korekcija
+%--------------------------------------------------------------------------
 disp('Racunam korekcije...')
 	    xxx=[1:12];
             if (TYPE==2)
@@ -240,21 +235,11 @@ disp('Racunam korekcije...')
                       corr_R(:,MOD)=AC_P0_pr_RCM_mom(:,MOD) -AC_P0_pr_DHMZ_mom';
                       divc_R(:,MOD)=AC_P0_pr_RCM_mom(:,MOD)./AC_P0_pr_DHMZ_mom';
                 end
+%--------------------------------------------------------------------------
 %--------------------------------------------------------------------------Crtanje delta i divc korekcija             
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------
+%--------------------------------------------------------------------------
                B2=B+100;
                h=figure(B2); 
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------
                     plot_mn(1,3,1)
                         plot([1:12],corr_t2m(:,2),'b','Linewidth',1.5); hold on; temp2=corr_t2m(:,2);
                         plot([1:12],corr_t2m(:,1),'k','Linewidth',1.5); hold on; temp1=corr_t2m(:,1);
@@ -263,11 +248,11 @@ disp('Racunam korekcije...')
           ind=isfinite(AC_t2m_DHMZ_vs_RCM_sig(:,1)); plot(xxx(ind),temp1(ind),'o k','MarkerFaceColor','k'); hold on
           ind=isfinite(AC_t2m_DHMZ_vs_RCM_sig(:,3)); plot(xxx(ind),temp3(ind),'o m','MarkerFaceColor','m'); hold on                        
                             xlim([1 12]); %ylim([-2.2 2.2]);
-                            xlabel('time (month)','fontsize',12); ylabel('adj. for t (deg C)','fontsize',12)
-                            title([StationTXT{STAT},'; RCMcorr-DHMZ'] ,'Fontsize',12);
-                            ttt=text(0,1.025,'a','units','normalized'); set(ttt,'fontsize',14);
+                            xlabel('time (month)','fontsize',FUTA); ylabel('adj. for t (deg C)','fontsize',FUTA)
+                            title([StationTXT{STAT},'; RCMcorr-DHMZ'] ,'Fontsize',FUTA);
+                            ttt=text(0,1.025,'a','units','normalized'); set(ttt,'fontsize',FUTA);
                             grid on
-                            set(gca,'Fontsize',12)                    
+                            set(gca,'Fontsize',FUTA)                    
                             udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,1))/(12*30)*100*10)/10),'%'];
                             text(0.05,0.9,udio,'units','normalized')
                             
@@ -280,29 +265,29 @@ disp('Racunam korekcije...')
           ind=isfinite(AC_pr_DHMZ_vs_RCM_sig(:,3)); plot(xxx(ind),temp3(ind),'o m','MarkerFaceColor','m'); hold on
 
                             xlim([1 12]); %ylim([-85 85]);
-                            title([StationTXT{STAT},'; RCMcorr-DHMZ'],'Fontsize',12)
-                            xlabel('time (month)','fontsize',12); ylabel('adj. for P (mm)','fontsize',12)
-                            ttt=text(0,1.025,'b','units','normalized'); set(ttt,'fontsize',14);        
+                            title([StationTXT{STAT},'; RCMcorr-DHMZ'],'Fontsize',FUTA)
+                            xlabel('time (month)','fontsize',12); ylabel('adj. for P (mm)','fontsize',FUTA)
+                            ttt=text(0,1.025,'b','units','normalized'); set(ttt,'fontsize',FUTA);        
                             legend('RegCM','Aladin','Promes','location','southwest')
                             grid on
-                            set(gca,'Fontsize',12)
+                            set(gca,'Fontsize',FUTA)
                             udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,2))/(12*30)*100*10)/10),'%'];
                             text(0.05,0.9,udio,'units','normalized')
 
                      plot_mn(1,3,3)
-                        plot([1:12],divc_R(:,2),'b','Linewidth',1.5); hold on; temp2=corr_R(:,2);
-                        plot([1:12],divc_R(:,1),'k','Linewidth',1.5); hold on; temp1=corr_R(:,1);
-                        plot([1:12],divc_R(:,3),'m','Linewidth',1.5); hold on; temp3=corr_R(:,3);
+                        plot([1:12],1./divc_R(:,2),'b','Linewidth',1.5); hold on; temp2=corr_R(:,2);
+                        plot([1:12],1./divc_R(:,1),'k','Linewidth',1.5); hold on; temp1=corr_R(:,1);
+                        plot([1:12],1./divc_R(:,3),'m','Linewidth',1.5); hold on; temp3=corr_R(:,3);
           ind=isfinite(AC_pr_DHMZ_vs_RCM_sig(:,2)); plot(xxx(ind),temp2(ind),'o b','MarkerFaceColor','b'); hold on
           ind=isfinite(AC_pr_DHMZ_vs_RCM_sig(:,1)); plot(xxx(ind),temp1(ind),'o k','MarkerFaceColor','k'); hold on
           ind=isfinite(AC_pr_DHMZ_vs_RCM_sig(:,3)); plot(xxx(ind),temp3(ind),'o m','MarkerFaceColor','m'); hold on
 
-                            xlim([1 12]); ylim([0 1]);
-                            title([StationTXT{STAT},'; RCMcorr/DHMZ'],'Fontsize',12)
-                            xlabel('time (month)','fontsize',12); ylabel('adj. for P (mm)','fontsize',12);
-                            ttt=text(0,1.025,'c','units','normalized'); set(ttt,'fontsize',14);        
+                            xlim([1 12]); ylim([1 3]);
+                            title([StationTXT{STAT},'; DHMZ/RCMcorr'],'Fontsize',FUTA)
+                            xlabel('time (month)','fontsize',12); ylabel('adj. for P (mm)','fontsize',FUTA);
+                            ttt=text(0,1.025,'c','units','normalized'); set(ttt,'fontsize',FUTA);        
                             grid on
-                            set(gca,'Fontsize',12)
+                            set(gca,'Fontsize',FUTA)
                             udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,2))/(12*30)*100*10)/10),'%'];
                             text(0.05,0.9,udio,'units','normalized')
                             
@@ -344,20 +329,9 @@ temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,3)),12,50);  TS_FUT_pr_RCM_YMmean_
 
 %-------------------------------------------------------------------     
 %-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
        % ---> crtam T2m adj_corr
 %-------------------------------------------------------------------     
 %-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------     
-%-------------------------------------------------------------------
-disp('Crtam adj_corr...')
        B3=B+200;
        ht=figure(B3); 
             plot_mn(4,2,1,[XA 0.1 0.85 0.85],XRAZ,0.05)
@@ -470,12 +444,6 @@ disp('Crtam adj_corr...')
 
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------
-%------------------------------------------------------------------------------
-%------------------------------------------------------------------------------
-%------------------------------------------------------------------------------
-%------------------------------------------------------------------------------
-%------------------------------------------------------------------------------
-%------------------------------------------------------------------------------
 %%   
 disp('Crtam P1 vs P0...')
             %-------------------------------------------------------------- %Crtanje P1 vs P0: RCM corr
@@ -520,7 +488,6 @@ disp('Crtam P1 vs P0...')
 	                    stairs(ecdf_tas_RCM_YMmean_P1(:,2),ecdf_y,'b','Linewidth',1.5); hold on
         	            stairs(ecdf_tas_RCM_YMmean_P1(:,1),ecdf_y,'k','Linewidth',1.5); hold on
                 	    stairs(ecdf_tas_RCM_YMmean_P1(:,3),ecdf_y,'m','Linewidth',1.5); hold on                    
-                        	%xlim([5  18])                       
 	                        ylim([0   1])
         	                xlabel('mean annual t (deg C)','Fontsize',FUTA)
                 	        ylabel('CDF','Fontsize',FUTA)
@@ -528,9 +495,9 @@ disp('Crtam P1 vs P0...')
                     		[testKS(2),NNN,MMM]=kolmogorov_smirnov_test_2(ecdf_tas_RCM_YMmean_P0(:,2),ecdf_tas_RCM_YMmean_P1(:,2));
 		                [testKS(1),NNN,MMM]=kolmogorov_smirnov_test_2(ecdf_tas_RCM_YMmean_P0(:,1),ecdf_tas_RCM_YMmean_P1(:,1));
                 	        [testKS(3),NNN,MMM]=kolmogorov_smirnov_test_2(ecdf_tas_RCM_YMmean_P0(:,3),ecdf_tas_RCM_YMmean_P1(:,3));
-	             plot(13,0.5,'b o'); hold on; if (testKS(2)<0.05); plot(11,0.5,'b o','MarkerFaceColor','b'); hold on; end
-        	     plot(13,0.6,'k o'); hold on; if (testKS(1)<0.05); plot(11,0.6,'k o','MarkerFaceColor','k'); hold on; end
-	             plot(13,0.7,'m o'); hold on; if (testKS(3)<0.05); plot(11,0.7,'m o','MarkerFaceColor','m'); hold on; end
+	             plot(13,0.5,'b o'); hold on; if (testKS(2)<0.05); plot(13,0.5,'b o','MarkerFaceColor','b'); hold on; end
+        	     plot(13,0.6,'k o'); hold on; if (testKS(1)<0.05); plot(13,0.6,'k o','MarkerFaceColor','k'); hold on; end
+	             plot(13,0.7,'m o'); hold on; if (testKS(3)<0.05); plot(13,0.7,'m o','MarkerFaceColor','m'); hold on; end
                 plot_mn(2,2,4)
                 	    stairs(ecdf_pr_RCM_YMmean_P0(:,2)*12,ecdf_y,'b'); hold on
         	            stairs(ecdf_pr_RCM_YMmean_P0(:,1)*12,ecdf_y,'k'); hold on
@@ -538,7 +505,6 @@ disp('Crtam P1 vs P0...')
         	            stairs(ecdf_pr_RCM_YMmean_P1(:,2)*12,ecdf_y,'b','Linewidth',1.5); hold on
                 	    stairs(ecdf_pr_RCM_YMmean_P1(:,1)*12,ecdf_y,'k','Linewidth',1.5); hold on
 	                    stairs(ecdf_pr_RCM_YMmean_P1(:,3)*12,ecdf_y,'m','Linewidth',1.5); hold on
-%                       xlim([300 3000])                     
         	                ylim([0  1])        
                 	        xlabel('annual P amount (mm)','Fontsize',FUTA)   
 	                        ylabel('CDF','Fontsize',FUTA)
@@ -552,24 +518,13 @@ disp('Crtam P1 vs P0...')
 			           legend('P0 RegCM3','P0 Aladin','P0 Promes','P1 RegCM3','P1 Aladin','P1 Promes','location','southeast')
                         
                     filenamePNG=[StationTXT{STAT},'_P1_vs_P0_RCMcorr.png'];
-                    print(ht,filenamePNG,'-dpng','-S750,750');
-%--------------------------------------------------------------
-%--------------------------------------------------------------
-%--------------------------------------------------------------
+                    print(ht,filenamePNG,'-dpng','-S500,500');
 %--------------------------------------------------------------
 %--------------------------------------------------------------
 %%   
 disp('Crtam vremenske nizove RCMcorr...')
             %--------------------------------------------------------------
-            %--------------------------------------------------------------
-            %--------------------------------------------------------------
-            %--------------------------------------------------------------
-            %--------------------------------------------------------------
             % Crtanje vremenskih nizova T2m 
-            %--------------------------------------------------------------
-            %--------------------------------------------------------------
-            %--------------------------------------------------------------
-            %--------------------------------------------------------------
             %--------------------------------------------------------------
            
             B5=B+500; 
@@ -583,42 +538,34 @@ disp('Crtam vremenske nizove RCMcorr...')
             for MOD=[2 1 3]
             panel=panel+1;
             plot_mn(3,1,panel)
-    plot([1:100],[TS_HIST_tas_RCM_YMmean(:,MOD); TS_FUT_tas_RCM_YMmean(:,MOD)],Color{MOD},'Linewidth',1.5); hold on
     tempT=[TS_HIST_tas_RCM_YMmean(:,MOD); TS_FUT_tas_RCM_YMmean(:,MOD)]; 
      P=polyfit([1:100]',tempT,1);    if (STAT~=5); [ H,p_value ] = MannKendall( tempT,0.05 ); end
     P2=polyfit([11:65]',tempT(11:65),1);    if (STAT~=5); [ H2,p_value2 ] = MannKendall( tempT(11:65),0.05 ); end
     P0_mean=mean(TS_HIST_tas_RCM_YMmean(11:40,MOD)); P0_std=std(TS_HIST_tas_RCM_YMmean(11:40,MOD),1);
     P1_mean=mean( TS_FUT_tas_RCM_YMmean(21:50,MOD)); P1_std=std( TS_FUT_tas_RCM_YMmean(21:50,MOD),1);
     plot([1:100],P(1)*[1:100]+P(2),Color{MOD}); hold on
-    plot([11:65],P2(1)*[11:65]+P2(2),'g','Linewidth',2);
-    xlim([0 100]); set(gca,'xtick',[0:10:100],'xticklabel',num2str([1950:10:2050]'));
-    text(-0.05,1.1,Letter{MOD},'units','normalized','Fontsize',12)
-    sadrzaj=[num2str(round(P0_mean*10)/10),'\pm',num2str(round(P0_std*10)/10),'deg C']; text(11,10.5,sadrzaj)
-    sadrzaj=[num2str(round(P1_mean*10)/10),'\pm',num2str(round(P1_std*10)/10),'deg C']; text(71,10.5,sadrzaj)
-    grid on; set(gca,'XGrid','on')
-    ylabel('t (deg C)','Fontsize',12); ylim([10 19]); 
-    set(gca,'Fontsize',12)
-    if (H==1); legend([ModelTXT{MOD},num2str(round(P(1)*10*100)/100),' deg C/10yr [sig.]'],'location','northwest')   ; end
-    if (H==0); legend([ModelTXT{MOD},num2str(round(P(1)*10*100)/100),' deg C/10yr [nonsig.]'],'location','northwest'); end
-    if (panel==1); title([StationTXT{STAT},'; RCMcorr'],'Fontsize',12); end
-    if (panel==3); xlabel(' time (year)','Fontsize',12); end    
+    plot([11:65],P2(1)*[11:65]+P2(2),'g','Linewidth',2); hold on
+    plot([1:100],[TS_HIST_tas_RCM_YMmean(:,MOD); TS_FUT_tas_RCM_YMmean(:,MOD)],Color{MOD},'Linewidth',1.5);
+	    xlim([0 100]); set(gca,'xtick',[0:10:100],'xticklabel',num2str([1950:10:2050]'));
+	    text(-0.05,1.1,Letter{MOD},'units','normalized','Fontsize',FUTA)
+%   sadrzaj=[num2str(round(P0_mean*10)/10),'\pm',num2str(round(P0_std*10)/10),'deg C']; text(11,10.5,sadrzaj)
+%   sadrzaj=[num2str(round(P1_mean*10)/10),'\pm',num2str(round(P1_std*10)/10),'deg C']; text(71,10.5,sadrzaj)
+	   grid on; set(gca,'XGrid','on')
+	   ylabel('t (deg C)','Fontsize',FUTA); ylim([10 19]); 
+	   set(gca,'Fontsize',FUTA)
+	SIG{1}='[nonsig.]'; SIG{2}='[sig.]';
+	text1=[ModelTXT{MOD},num2str(round( P(1)*10*100)/100),' deg C/10yr ',SIG{ H+1}];
+	text2=[ModelTXT{MOD},num2str(round(P2(1)*10*100)/100),' deg C/10yr ',SIG{H2+1}];
+    legend(text1,text2,'location','northwest');
+    if (panel==1); title([StationTXT{STAT},'; RCMcorr'],'Fontsize',FUTA); end
+    if (panel==3); xlabel(' time (year)','Fontsize',FUTA); end    
     	    end; %od MOD
                         
                     filenameJPG=[StationTXT{STAT},'_RCMcorr_T2m_TS.png'];
                     print(ht,filenameJPG,'-dpng','-S1000,750');    
 
             %--------------------------------------------------------------
-            %--------------------------------------------------------------
-            %--------------------------------------------------------------
-            %--------------------------------------------------------------
-            %--------------------------------------------------------------
-            %--------------------------------------------------------------
             % Crtanje vremenskih nizova PR
-            %--------------------------------------------------------------
-            %--------------------------------------------------------------
-            %--------------------------------------------------------------
-            %--------------------------------------------------------------
-            %--------------------------------------------------------------
             %--------------------------------------------------------------
            
             B6=B+600; 
@@ -627,25 +574,27 @@ disp('Crtam vremenske nizove RCMcorr...')
             for MOD=[2 1 3]
             panel=panel+1;
                 plot_mn(3,1,panel)
-plot([1:100],[TS_HIST_pr_RCM_YMmean(:,MOD); TS_FUT_pr_RCM_YMmean(:,MOD)]*12,Color{MOD},'Linewidth',1.5); hold on
 tempT=[TS_HIST_pr_RCM_YMmean(:,MOD); TS_FUT_pr_RCM_YMmean(:,MOD)]*12; 
 P2=polyfit([11:65]',tempT(11:65),1);    if (STAT~=5); [ H2,p_value2 ] = MannKendall( tempT(11:65),0.05 ); end
 P=polyfit([1:100]',tempT,1);      [ H,p_value ] = MannKendall( tempT,0.05 );
 P0_mean=mean(TS_HIST_pr_RCM_YMmean(11:40,MOD)*12); P0_std=std(TS_HIST_pr_RCM_YMmean(11:40,MOD)*12,1);
 P1_mean=mean( TS_FUT_pr_RCM_YMmean(21:50,MOD)*12); P1_std=std( TS_FUT_pr_RCM_YMmean(21:50,MOD)*12,1);
 plot([1:100],P(1)*[1:100]+P(2),Color{MOD}); hold on
-plot([11:65],P2(1)*[11:65]+P2(2),'g','Linewidth',2);
+plot([11:65],P2(1)*[11:65]+P2(2),'g','Linewidth',2); hold on
+plot([1:100],[TS_HIST_pr_RCM_YMmean(:,MOD); TS_FUT_pr_RCM_YMmean(:,MOD)]*12,Color{MOD},'Linewidth',1.5);
 xlim([0 100]); set(gca,'xtick',[0:10:100],'xticklabel',num2str([1950:10:2050]'));
-text(-0.05,1.1,Letter{MOD},'units','normalized','Fontsize',12)
-sadrzaj=[num2str(round(P0_mean)),'\pm',num2str(round(P0_std)),' mm']; text(11,600,sadrzaj)
-sadrzaj=[num2str(round(P1_mean)),'\pm',num2str(round(P1_std)),' mm']; text(71,600,sadrzaj)
+text(-0.05,1.1,Letter{MOD},'units','normalized','Fontsize',FUTA)
+%sadrzaj=[num2str(round(P0_mean)),'\pm',num2str(round(P0_std)),' mm']; text(11,400,sadrzaj)
+%sadrzaj=[num2str(round(P1_mean)),'\pm',num2str(round(P1_std)),' mm']; text(71,400,sadrzaj)
              grid on; set(gca,'XGrid','on')
-             ylabel('P (mm)','Fontsize',12); ylim([300 1500]); 
-             set(gca,'Fontsize',12)
-if (H==1); legend([ModelTXT{MOD},num2str(round(P(1)*10*10)/10),' mm/10yr [sig.]'],'location','northwest')   ; end
-if (H==0); legend([ModelTXT{MOD},num2str(round(P(1)*10*10)/10),' mm/10yr [nonsig.]'],'location','northwest'); end                            
-if (panel==1); title([StationTXT{STAT},'; RCMcorr'],'Fontsize',12); end    
-if (panel==3); xlabel(' time (year)','Fontsize',12); end    
+             ylabel('P (mm)','Fontsize',FUTA); ylim([300 1500]); 
+             set(gca,'Fontsize',FUTA)
+	SIG{1}='[nonsig.]'; SIG{2}='[sig.]';
+	text1=[ModelTXT{MOD},num2str(round( P(1)*10*100)/100),' mm/10yr ',SIG{ H+1}];
+	text2=[ModelTXT{MOD},num2str(round(P2(1)*10*100)/100),' mm/10yr ',SIG{H2+1}];
+    legend(text1,text2,'location','northwest');
+    if (panel==1); title([StationTXT{STAT},'; RCMcorr'],'Fontsize',FUTA); end
+    if (panel==3); xlabel(' time (year)','Fontsize',FUTA); end    
             end %od MOD
                         
                     filenamePNG=[StationTXT{STAT},'_RCMcorr_pr_TS.png'];
@@ -895,9 +844,9 @@ plot(matrica_YM(:,1),matrica_YM(:,3+7),Color{3},'Linewidth',2); hold on
 		        print(ht,filenamePNG,'-dpng','-S1600,800');
 
 %---Tablica jos jedna
-
-st1=10; st2=10;
-en1=49; en2=39;
+%manje razlike u odnosu na izvjesce za DRINKADRIA je vezano za std(0) vs std(1).
+st1= 1; st2=11;
+en1=50; en2=40;
 	MMMM=nan(5,4);
 	MMMM(1:3,1:4)=[mean(TS_HIST_tas_RCM_YMmean(st1:en1,[2 1 3]))'    ...        
                        mean(TS_HIST_tas_RCM_YMmean(st2:en2,[2 1 3]))'    ...        
