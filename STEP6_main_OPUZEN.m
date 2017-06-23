@@ -156,8 +156,6 @@ disp('Crtam...')
                     ylim([13  18])        
                     ylabel('mean t (deg C)','Fontsize',FUTA); xlabel('time (year)','Fontsize',FUTA)
                     ttt=text(-0.1,1.15,'e','units','normalized'); set(ttt,'Fontsize',FUTA);
-                    udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,1))/(12*30)*100*10)/10),'%'];
-                    text(0.05,0.9,udio,'units','normalized');
                     
             plot_mn(4,2,7,[XA 0.1 0.85 0.85],XRAZ,0.05)                    
                 stairs(ecdf_tas_RCM_YMmean_P0(:,2),ecdf_y,'b'); hold on
@@ -206,8 +204,6 @@ disp('Crtam...')
                     ylim([0 2000])    
                     ylabel('P amount (mm)','Fontsize',FUTA); xlabel('time (year)','Fontsize',FUTA)
                     ttt=text(-0.1,1.15,'f','units','normalized','Fontsize',FUTA);
-                    udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,2))/(12*30)*100*10)/10),'%'];
-                    text(0.05,0.9,udio,'units','normalized')
                     
             plot_mn(4,2,8,[XA 0.1 0.85 0.85],XRAZ,0.05)  % *12 jer godisnji srednjak pretvaram u godisnju sumu
                 stairs(ecdf_pr_RCM_YMmean_P0(:,2)*12,ecdf_y,'b'); hold on
@@ -253,8 +249,6 @@ disp('Racunam korekcije...')
                             ttt=text(0,1.025,'a','units','normalized'); set(ttt,'fontsize',FUTA);
                             grid on
                             set(gca,'Fontsize',FUTA)                    
-                            udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,1))/(12*30)*100*10)/10),'%'];
-                            text(0.05,0.9,udio,'units','normalized')
                             
                      plot_mn(1,3,2)
                         plot([1:12],corr_R(:,2),'b','Linewidth',1.5); hold on; temp2=corr_R(:,2);
@@ -271,8 +265,6 @@ disp('Racunam korekcije...')
                             legend('RegCM','Aladin','Promes','location','southwest')
                             grid on
                             set(gca,'Fontsize',FUTA)
-                            udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,2))/(12*30)*100*10)/10),'%'];
-                            text(0.05,0.9,udio,'units','normalized')
 
                      plot_mn(1,3,3)
                         plot([1:12],1./divc_R(:,2),'b','Linewidth',1.5); hold on; temp2=corr_R(:,2);
@@ -288,8 +280,6 @@ disp('Racunam korekcije...')
                             ttt=text(0,1.025,'c','units','normalized'); set(ttt,'fontsize',FUTA);        
                             grid on
                             set(gca,'Fontsize',FUTA)
-                            udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,2))/(12*30)*100*10)/10),'%'];
-                            text(0.05,0.9,udio,'units','normalized')
                             
                     filenamePNG=[StationTXT{STAT},'_adjustment.png'];
                     print(h,filenamePNG,'-dpng','-S1200,600');
@@ -364,8 +354,6 @@ temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,3)),12,50);  TS_FUT_pr_RCM_YMmean_
                     ylim([13  18])    
                     ylabel('mean t (deg C)','Fontsize',FUTA); xlabel('time (year)','Fontsize',FUTA)
                     ttt=text(-0.1,1.15,'e','units','normalized'); set(ttt,'Fontsize',FUTA);
-                    udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,1))/(12*30)*100*10)/10),'%'];
-                    text(0.05,0.9,udio,'units','normalized')
                     
             plot_mn(4,2,7,[XA 0.1 0.85 0.85],XRAZ,0.05)                    
                 stairs(ecdf_tas_RCM_YMmean_P0_adj_corr(:,2),ecdf_y,'b'); hold on
@@ -422,8 +410,6 @@ temp=reshape(squeeze(RCMcorr_adj_corr(:,MOD,2,3)),12,50);  TS_FUT_pr_RCM_YMmean_
                     ylim([0 2000])    
                     ylabel('P amount (mm)','Fontsize',FUTA); xlabel('time (year)','Fontsize',FUTA)
                     ttt=text(-0.1,1.15,'f','units','normalized'); set(ttt,'Fontsize',FUTA);
-                    udio=['Local OBS in P0: ',num2str(round(sum(b_leng(:,2))/(12*30)*100*10)/10),'%'];
-                    text(0.05,0.9,udio,'units','normalized')
 
             plot_mn(4,2,8,[XA 0.1 0.85 0.85],XRAZ,0.05) % *12 jer godisnji srednjak pretvaram u godisnju sumu          
                 stairs(ecdf_pr_RCM_YMmean_P0_adj_corr1(:,2)*12,ecdf_y,'b'); hold on
