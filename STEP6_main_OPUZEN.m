@@ -82,6 +82,7 @@ disp('Racunam...')
 %-------------------------------------------------------------------
        % ---> racunam znacajnost P1 vs P0 razlika
 %-------------------------------------------------------------------
+	if (TYPE==2);
     AC_t2m_P0_vs_P1_sig=nan(12,3);
     AC_pr_P0_vs_P1_sig=nan(12,3);
         for MOD=[1:3]
@@ -94,6 +95,7 @@ disp('Racunam...')
                 [P,H]=u_test(a(10*12+MON:12:40*12),b(20*12+MON:12:50*12));  if (P<0.05);  AC_pr_P0_vs_P1_sig(MON,MOD)=1; end               
             end
         end
+	end
 %-------------------------------------------------------------------
        % ---> racunam znacajnost DHMZ vs RCM razlika u P0
 %-------------------------------------------------------------------
@@ -106,6 +108,7 @@ disp('Racunam...')
 
     AC_t2m_DHMZ_vs_RCM_sig=nan(12,3);
      AC_pr_DHMZ_vs_RCM_sig=nan(12,3);
+	if (TYPE==2);
         for MOD=[1:3]
             for MON=[1:12]
                 a=squeeze(MM{:,MOD,1,1});
@@ -116,7 +119,7 @@ disp('Racunam...')
                 [P,H]=u_test(a(10*12+MON:12:40*12),b);  if (P<0.05);  AC_pr_DHMZ_vs_RCM_sig(MON,MOD)=1; end               
             end
         end
-
+	end
 %%            
 %-------------------------------------------------------------------     
        % ---> crtam T2m RCMcorr
@@ -211,7 +214,7 @@ disp('Crtam...')
                     xlabel('annual P amount (mm)','Fontsize',FUTA); ylabel('CDF','Fontsize',FUTA); set(gca,'ytick',[0:0.2:1],'yticklabel',num2str([0:0.2:1]'));
                     ttt=text(-0.1,1.15,'f','units','normalized'); set(ttt,'Fontsize',FUTA);
 
-                    filenamePNG=[StationTXT{STAT},'_',TYPEtxt2_corr{TYPE},'.png'];
+                   filenamePNG=[StationTXT{STAT},'_',TYPEtxt2_corr{TYPE},'.png'];
                    print(h,filenamePNG,'-dpng','-S750,700');
 %%             
 %--------------------------------------------------------------------------
@@ -498,6 +501,8 @@ disp('Crtam P1 vs P0...')
                         
                     filenamePNG=[StationTXT{STAT},'_P1_vs_P0_RCMcorr.png'];
                     print(ht,filenamePNG,'-dpng','-S600,500');
+
+	end %od if (type==2)
 %--------------------------------------------------------------
 %--------------------------------------------------------------
 %%   
@@ -536,11 +541,11 @@ disp('Crtam vremenske nizove RCMcorr...')
 	text1=[ModelTXT{MOD},num2str(round( P(1)*10*100)/100),' deg C/10yr ',SIG{ H+1}];
 	text2=[ModelTXT{MOD},num2str(round(P2(1)*10*100)/100),' deg C/10yr ',SIG{H2+1}];
     legend(text1,text2,'location','northwest');
-    if (panel==1); title([StationTXT{STAT},'; RCMcorr'],'Fontsize',FUTA); end
+    if (panel==1); title([StationTXT{STAT},'; ',TYPEtxt2_corr{TYPE}],'Fontsize',FUTA); end
     if (panel==3); xlabel(' time (year)','Fontsize',FUTA); end    
     	    end; %od MOD
                         
-                    filenameJPG=[StationTXT{STAT},'_RCMcorr_T2m_TS.png'];
+                    filenameJPG=[StationTXT{STAT},'_',TYPEtxt2_corr{TYPE},'_T2m_TS.png'];
                     print(ht,filenameJPG,'-dpng','-S1000,750');    
 
             %--------------------------------------------------------------
@@ -572,11 +577,12 @@ text(-0.05,1.1,Letter{MOD},'units','normalized','Fontsize',FUTA)
 	text1=[ModelTXT{MOD},num2str(round( P(1)*10*100)/100),' mm/10yr ',SIG{ H+1}];
 	text2=[ModelTXT{MOD},num2str(round(P2(1)*10*100)/100),' mm/10yr ',SIG{H2+1}];
     legend(text1,text2,'location','northwest');
-    if (panel==1); title([StationTXT{STAT},'; RCMcorr'],'Fontsize',FUTA); end
+    if (panel==1); title([StationTXT{STAT},'; ',TYPEtxt2_corr{TYPE}],'Fontsize',FUTA); end
     if (panel==3); xlabel(' time (year)','Fontsize',FUTA); end    
             end %od MOD
-                        
-                    filenamePNG=[StationTXT{STAT},'_RCMcorr_pr_TS.png'];
+                    
+
+		    filenamePNG=[StationTXT{STAT},'_',TYPEtxt2_corr{TYPE},'_pr_TS.png'];
                     print(ht,filenamePNG,'-dpng','-S1000,750'); 
 
 %--------------------------------------------------------------------------------------------------
@@ -585,7 +591,8 @@ text(-0.05,1.1,Letter{MOD},'units','normalized','Fontsize',FUTA)
 %--------------------------------------------------------------------------------------------------
 %--------------------------------------------------------------------------------------------------
 %--------------------------------------------------------------------------------------------------
-%%                
+%%               
+	if (TYPE==2)
 disp('Crtam vremenske nizove RCMcorr_adj...')
             %--------------------------------------------------------------
             %--------------------------------------------------------------
@@ -681,7 +688,7 @@ end
 if (panel==1); title([StationTXT{STAT},'; RCMcorr adj'],'Fontsize',12); end    
 if (panel==3); xlabel(' time (year)','Fontsize',12); end    
             end %od MOD              
-                        
+                       
             filenamePNG=[StationTXT{STAT},'_RCMcorr_adj_pr_TS.png'];
             print(ht,filenamePNG,'-dpng','-S1000,750');
 %----------------------------------------------------------------------------------------------------------
